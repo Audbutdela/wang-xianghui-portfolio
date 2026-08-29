@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1240" viewBox="0 0 1760 1240">
+  <defs><filter id="s" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#20271d" flood-opacity=".25"/></filter><linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3f6ed"/><stop offset="1" stop-color="#dce5d6"/></linearGradient><linearGradient id="g"><stop stop-color="#c8d3c2" stop-opacity="0"/><stop offset=".5" stop-color="#68765f" stop-opacity=".22"/><stop offset="1" stop-color="#c8d3c2" stop-opacity="0"/></linearGradient></defs>
+  <g filter="url(#s)"><path d="M105 270Q95 270 95 286V938Q95 966 122 971H880V270Z" fill="url(#p)"/><path d="M880 270H1655Q1665 270 1665 286V938Q1665 966 1638 971H880Z" fill="url(#p)"/></g>
+  <text x="150" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">个人简历 · 01</text>
+  <text x="150" y="405" fill="#293126" font-size="56" font-family="Instrument Serif, STSong, serif">从业务需求出发，</text><text x="150" y="470" fill="#293126" font-size="56" font-family="Instrument Serif, STSong, serif">完成招聘交付。</text>
+  <line x1="150" y1="515" x2="760" y2="515" stroke="#293126" stroke-opacity=".15"/>
+  <g font-family="Newsreader, STSong, serif">
+    <circle cx="165" cy="576" r="6" fill="#637054"/><text x="195" y="582" fill="#293126" font-size="29" font-weight="600">网易互娱 · 招聘经理</text><text x="195" y="616" fill="#667061" font-size="20">2026.02 — 至今</text><text x="195" y="654" fill="#596255" font-size="23">游戏交互、AI 产品／设计及技术岗位</text>
+    <circle cx="165" cy="720" r="6" fill="#637054"/><text x="195" y="726" fill="#293126" font-size="29" font-weight="600">阿里优酷 · 招聘 HR</text><text x="195" y="760" fill="#667061" font-size="20">2024.12 — 2026.02</text><text x="195" y="798" fill="#596255" font-size="23">50+ 岗位，自主开源 Offer 40+</text>
+    <circle cx="165" cy="864" r="6" fill="#637054"/><text x="195" y="870" fill="#293126" font-size="29" font-weight="600">拼多多 TEMU · HR 管培</text><text x="195" y="904" fill="#667061" font-size="20">2024.07 — 2024.11 · 面试 130+ · Offer 30+</text>
+  </g>
+  <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">经历与能力 · 02</text>
+  <g font-family="Newsreader, STSong, serif">
+    <text x="955" y="400" fill="#293126" font-size="31" font-weight="600">网易雷火 · 美术招聘 HR 实习生</text><text x="955" y="438" fill="#667061" font-size="20">资深美术、技术与策划岗位招聘</text>
+    <text x="955" y="515" fill="#293126" font-size="31" font-weight="600">北京快手 · HR 实习生</text><text x="955" y="553" fill="#667061" font-size="20">服务 7 个部门、400+ 人业务团队</text>
+    <line x1="955" y1="600" x2="1540" y2="600" stroke="#293126" stroke-opacity=".14"/>
+    <text x="955" y="660" fill="#293126" font-size="28" font-weight="600">教育背景</text><text x="955" y="704" fill="#596255" font-size="23">北京联合大学 · 国际商务本科</text><text x="955" y="740" fill="#667061" font-size="20">2019.09 — 2024.07</text>
+    <text x="955" y="820" fill="#293126" font-size="28" font-weight="600">职业关键词</text><text x="955" y="864" fill="#596255" font-size="23">行业 Mapping · 招聘漏斗 · 雇主品牌</text><text x="955" y="900" fill="#596255" font-size="23">高阶人才招聘 · Vibe Coding</text>
+  </g>
+  <rect x="842" y="270" width="76" height="701" fill="url(#g)"/>
+</svg>

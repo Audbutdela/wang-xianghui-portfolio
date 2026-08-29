@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1760" height="1240" viewBox="0 0 1760 1240">
+  <defs>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#20271d" flood-opacity=".25"/></filter>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3f6ed"/><stop offset="1" stop-color="#dce5d6"/></linearGradient>
+    <linearGradient id="gutter" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#c8d3c2" stop-opacity="0"/><stop offset=".5" stop-color="#68765f" stop-opacity=".22"/><stop offset="1" stop-color="#c8d3c2" stop-opacity="0"/></linearGradient>
+    <clipPath id="left"><path d="M105 270Q95 270 95 286V938Q95 966 122 971H880V270Z"/></clipPath>
+    <clipPath id="right"><path d="M880 270H1655Q1665 270 1665 286V938Q1665 966 1638 971H880Z"/></clipPath>
+  </defs>
+  <g filter="url(#shadow)"><path d="M105 270Q95 270 95 286V938Q95 966 122 971H880V270Z" fill="url(#paper)"/><path d="M880 270H1655Q1665 270 1665 286V938Q1665 966 1638 971H880Z" fill="url(#paper)"/></g>
+  <g clip-path="url(#left)">
+    <circle cx="140" cy="315" r="5" fill="#637a55"/>
+    <text x="165" y="323" fill="#64705f" font-size="21" letter-spacing="4" font-family="Newsreader, Georgia, serif">王祥辉 · 互联网招聘</text>
+    <text x="155" y="440" fill="#293126" font-size="76" font-family="Instrument Serif, STSong, serif">让人才与机会</text>
+    <text x="155" y="528" fill="#293126" font-size="76" font-family="Instrument Serif, STSong, serif">在更好的地方相遇</text>
+    <line x1="155" y1="586" x2="735" y2="586" stroke="#293126" stroke-opacity=".18"/>
+    <text x="155" y="646" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">专注游戏、AI、产品设计与技术人才招聘</text>
+    <text x="155" y="690" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">也用代码构建更高效的招聘系统。</text>
+    <text x="155" y="826" fill="#637a55" font-size="22" letter-spacing="3" font-family="Newsreader, STSong, serif">翻页查看简历、招聘工具与联系方式 →</text>
+  </g>
+  <g clip-path="url(#right)">
+    <rect x="955" y="330" width="600" height="570" rx="42" fill="#dfe6da"/>
+    <image xlink:href="../inner-green-assets/wang-and-cat-transparent.png" x="1020" y="350" width="470" height="500" preserveAspectRatio="xMidYMid meet"/>
+    <text x="1010" y="920" fill="#64705f" font-size="22" font-family="Newsreader, STSong, serif">游戏 · AI · 产品设计 · 技术</text>
+  </g>
+  <rect x="842" y="270" width="76" height="701" fill="url(#gutter)"/>
+</svg>

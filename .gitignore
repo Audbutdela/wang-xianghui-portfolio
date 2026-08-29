@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local and superseded experiments
+preview.png
+public/landing-pages/portfolio-bookshelf.html
+public/landing-pages/bookshelf-assets/
+public/landing-pages/inner-green-assets/wang-and-cat.jpg
