@@ -17,10 +17,19 @@
     <text x="155" y="690" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">也用代码构建更高效的招聘系统。</text>
     <text x="155" y="826" fill="#637a55" font-size="22" letter-spacing="3" font-family="Newsreader, STSong, serif">翻页查看简历、招聘工具与联系方式 →</text>
   </g>
-  <g clip-path="url(#right)">
+  <g clip-path="url(#right)" font-family="Newsreader, STSong, serif">
     <rect x="955" y="330" width="600" height="570" rx="42" fill="#dfe6da"/>
-    <image xlink:href="../inner-green-assets/wang-and-cat-transparent.png" x="1020" y="350" width="470" height="500" preserveAspectRatio="xMidYMid meet"/>
-    <text x="1010" y="920" fill="#64705f" font-size="22" font-family="Newsreader, STSong, serif">游戏 · AI · 产品设计 · 技术</text>
+    <text x="1010" y="395" fill="#637a55" font-size="19" letter-spacing="4">RECRUITING × AI</text>
+    <text x="1010" y="485" fill="#293126" font-size="54" font-family="Instrument Serif, STSong, serif">从招聘现场</text>
+    <text x="1010" y="550" fill="#293126" font-size="54" font-family="Instrument Serif, STSong, serif">到可运行工具</text>
+    <line x1="1010" y1="600" x2="1495" y2="600" stroke="#293126" stroke-opacity=".16"/>
+    <g font-size="23" fill="#394535">
+      <rect x="1010" y="640" width="220" height="62" rx="31" fill="#edf1e9"/><text x="1057" y="680">人才寻访</text>
+      <rect x="1250" y="640" width="245" height="62" rx="31" fill="#edf1e9"/><text x="1283" y="680">画像与筛选</text>
+      <rect x="1010" y="724" width="220" height="62" rx="31" fill="#edf1e9"/><text x="1057" y="764">流程协同</text>
+      <rect x="1250" y="724" width="245" height="62" rx="31" fill="#edf1e9"/><text x="1295" y="764">数据复盘</text>
+    </g>
+    <text x="1010" y="850" fill="#64705f" font-size="20" letter-spacing="2">2023—NOW · INTERNET / GAME / AI</text>
   </g>
   <rect x="842" y="270" width="76" height="701" fill="url(#gutter)"/>
 </svg>

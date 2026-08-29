@@ -5,7 +5,7 @@
   <text x="150" y="400" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把重复工作交给工具，</text><text x="150" y="458" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把时间留给判断。</text>
   <g font-family="Newsreader, STSong, serif">
     <rect x="145" y="520" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="558" fill="#637a55" font-size="18">01</text><text x="220" y="560" fill="#293126" font-size="27" font-weight="600">BOSS／脉脉招聘工作台</text><text x="220" y="596" fill="#596255" font-size="21">多平台信息、重点人选与每日待办</text>
-    <rect x="145" y="650" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="688" fill="#637a55" font-size="18">02</text><text x="220" y="690" fill="#293126" font-size="27" font-weight="600">个人问答助手</text><text x="220" y="726" fill="#596255" font-size="21">沉淀经验，快速检索与答复</text>
+    <rect x="145" y="650" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="688" fill="#637a55" font-size="18">02</text><text x="220" y="690" fill="#293126" font-size="27" font-weight="600">简历分析与问答助手</text><text x="220" y="726" fill="#596255" font-size="21">提炼经历，围绕简历证据追问</text>
     <rect x="145" y="780" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="818" fill="#637a55" font-size="18">03</text><text x="220" y="820" fill="#293126" font-size="27" font-weight="600">面试排期预订</text><text x="220" y="856" fill="#596255" font-size="21">协调候选人与面试官时间</text>
   </g>
   <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">招聘工具 · 04—06</text>
