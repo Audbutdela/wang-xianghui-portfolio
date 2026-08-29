@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1240" viewBox="0 0 1760 1240">
+  <defs><filter id="s" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#20271d" flood-opacity=".25"/></filter><linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3f6ed"/><stop offset="1" stop-color="#dce5d6"/></linearGradient><linearGradient id="g"><stop stop-color="#c8d3c2" stop-opacity="0"/><stop offset=".5" stop-color="#68765f" stop-opacity=".22"/><stop offset="1" stop-color="#c8d3c2" stop-opacity="0"/></linearGradient></defs>
+  <g filter="url(#s)"><path d="M105 270Q95 270 95 286V938Q95 966 122 971H880V270Z" fill="url(#p)"/><path d="M880 270H1655Q1665 270 1665 286V938Q1665 966 1638 971H880Z" fill="url(#p)"/></g>
+  <text x="150" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">招聘工具 · 01—03</text>
+  <text x="150" y="400" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把重复工作交给工具，</text><text x="150" y="458" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把时间留给判断。</text>
+  <g font-family="Newsreader, STSong, serif">
+    <rect x="145" y="520" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="558" fill="#637a55" font-size="18">01</text><text x="220" y="560" fill="#293126" font-size="27" font-weight="600">BOSS／脉脉招聘工作台</text><text x="220" y="596" fill="#596255" font-size="21">多平台信息、重点人选与每日待办</text>
+    <rect x="145" y="650" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="688" fill="#637a55" font-size="18">02</text><text x="220" y="690" fill="#293126" font-size="27" font-weight="600">个人问答助手</text><text x="220" y="726" fill="#596255" font-size="21">沉淀经验，快速检索与答复</text>
+    <rect x="145" y="780" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="818" fill="#637a55" font-size="18">03</text><text x="220" y="820" fill="#293126" font-size="27" font-weight="600">面试排期预订</text><text x="220" y="856" fill="#596255" font-size="21">协调候选人与面试官时间</text>
+  </g>
+  <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">招聘工具 · 04—06</text>
+  <g font-family="Newsreader, STSong, serif">
+    <rect x="950" y="390" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="432" fill="#637a55" font-size="18">04</text><text x="1025" y="434" fill="#293126" font-size="27" font-weight="600">招聘数据与转化漏斗</text><text x="1025" y="472" fill="#596255" font-size="21">识别关键节点的效率问题</text>
+    <rect x="950" y="548" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="590" fill="#637a55" font-size="18">05</text><text x="1025" y="592" fill="#293126" font-size="27" font-weight="600">人才库回捞与流程协同</text><text x="1025" y="630" fill="#596255" font-size="21">盘活存量人才并及时推进</text>
+    <rect x="950" y="706" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="748" fill="#637a55" font-size="18">06</text><text x="1025" y="750" fill="#293126" font-size="27" font-weight="600">流程人选定期跟进</text><text x="1025" y="788" fill="#596255" font-size="21">节点提醒，降低遗忘与停滞</text>
+  </g>
+  <rect x="842" y="270" width="76" height="701" fill="url(#g)"/>
+</svg>
