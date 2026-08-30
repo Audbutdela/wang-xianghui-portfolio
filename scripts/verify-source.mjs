@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "c66c7dbfd5b7c714668a92a3f44c42681fb2747d297655d6545450c16d4359c1"],
-  ["public/landing-pages/wang-sketchbook.html", "07ab124d62fd33dae8760ca488d35bdd823a7af762d0319c5664281926c83b62"],
-  ["public/landing-pages/portfolio-detail.html", "f347a6bd63d86ea60b794941241f69a66cda70008c11d6ab800e3620da824078"],
+  ["public/landing-pages/wang-sketchbook.html", "7ab06a43ef8aa440e582b2c3d24d6634bfa1216827032e742c9d1e1b60c44240"],
+  ["public/landing-pages/portfolio-detail.html", "a3b4b91fe3e394fb1787167d9ac62428309bf7e3b14f4a45fbdaf6bf79812f7a"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
@@ -13,10 +13,15 @@ const expected = new Map([
   ["public/landing-pages/meng-to-sketchbook/instrument-serif.woff2", "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d"],
   ["public/landing-pages/meng-to-sketchbook/instrument-serif-italic.woff2", "6ee678c33f388dd7ba59700ebea635deb98821baafd817b09891f7927177f702"],
   ["public/landing-pages/meng-to-sketchbook/newsreader.woff2", "01817351be3edfc1714fe6d60ddea6a22a169a5ebd033b50c7f9495e5d9c386a"],
-  ["public/landing-pages/portfolio-book/01-home.svg", "1c169c3f5e2f05eed4672bcb8ffe503c4b275966493cd7d1f083ea9fd826d377"],
+  ["public/landing-pages/portfolio-book/01-home.svg", "9f0314820ee67e69f75f303cd9b7a91562e00e9eaa6334444052efdef55ab5c8"],
   ["public/landing-pages/portfolio-book/02-resume.svg", "723c7c2d4aab7940d326cb43ad07dc8fa1f348861bc644f90aa6043b6d1a622f"],
   ["public/landing-pages/portfolio-book/03-tools.svg", "43b38423e024c321eadb67ccea6239536e661b0144fae8d2674e616f1f747f1c"],
   ["public/landing-pages/portfolio-book/04-contact.svg", "4b28c9fb4498e1ee6a1bc5fdee9d50876de155f9b327860eaa9e3736f00ed3ea"],
+  ["public/landing-pages/portfolio-book/cat-player.png", "01757608cf54fb55ff2c064a84913b16d874b444966f9b7869c13f8e51f4cdd8"],
+  ["public/landing-pages/portfolio-book/vine-wreath.png", "d72c8a1f72d7950e062b66a8a3f750ffd5d843e6549864b276dfbd0000021b1d"],
+  ["public/landing-pages/portfolio-book/moss-hex-tile.png", "c5b8f3ec8ce5216fe6cda959e765a819185f2a7fc3dc71c329d8a764a809b608"],
+  ["public/landing-pages/portfolio-book/vine-board-background.png", "87d170f6e1d9a60d936a5a6ed6775cb8caabdd9f1a5cc070593be47c1c5769d8"],
+  ["public/landing-pages/portfolio-book/wechat-qr.png", "e66d4fccfd177f235de5affcf196e2ebc0d952170f6f19c4c0852e7561829616"],
 ]);
 
 let failed = false;

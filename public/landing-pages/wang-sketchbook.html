@@ -24,10 +24,19 @@
   --font:'Newsreader',"New York",Georgia,'Times New Roman',serif;
   --track-caps:.24em;
   --track-nav:.06em;
+  --type-brand:22px;
+  --type-nav:16px;
+  --type-cover-title:clamp(40px,4.2vw,58px);
+  --type-cover-meta:clamp(15px,1.4vw,19px);
+  --type-section-title:clamp(46px,5vw,70px);
+  --type-section-copy:clamp(16px,1.45vw,19px);
+  --type-card-title:clamp(28px,2.5vw,34px);
+  --type-card-copy:clamp(13px,1.1vw,15px);
+  --type-meta:12px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-snap-type:y proximity}
 body{
   font-family:var(--font);font-weight:400;background:#383b34;color:var(--ink);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
@@ -48,83 +57,81 @@ button{font:inherit}
 }
 .wash:after{display:none}
 body[data-scene="book"] .wash:before{opacity:.58}
-body[data-scene="about"] .wash:before{opacity:.82}
 body[data-scene="bookshelf"] .wash:before{opacity:.88}
 body[data-scene="contact"] .wash:before{opacity:.76}
 .forest-frame{position:fixed;inset:-3%;width:106%;height:106%;border:0;z-index:-3;pointer-events:none;background:#383b34;
   transform:translate3d(0,0,0) scale(1.01);transform-origin:center;opacity:1;
-  transition:transform 1.15s cubic-bezier(.2,.72,.24,1),opacity .7s ease,filter .7s ease}
-body[data-scene="cover"] .forest-frame{transform:translate3d(0,4vh,0) scale(1.1)}
-body[data-scene="book"] .forest-frame{transform:translate3d(0,-1vh,0) scale(1.035);filter:saturate(.92) brightness(.9)}
-body[data-scene="about"] .forest-frame{transform:translate3d(0,0,0) scale(1.02)}
-body[data-scene="bookshelf"] .forest-frame{transform:translate3d(0,-2vh,0) scale(1.04);opacity:.9;filter:saturate(.82) brightness(.82)}
-body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03)}
+  transition:opacity .7s ease,filter .7s ease}
+body[data-scene="book"] .forest-frame{filter:saturate(.92) brightness(.9)}
+body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brightness(.82)}
 .page{position:relative;z-index:1}
 
 /* ---------------- top bar ---------------- */
 .top{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;flex-direction:column;align-items:center;gap:13px;
-  padding-inline:clamp(16px,4vw,48px);padding-block:17px 70px;pointer-events:none;text-align:center;
+  position:absolute;top:clamp(28px,6svh,58px);left:50%;z-index:5;transform:translateX(-50%);
+  width:auto;padding:0;pointer-events:none;text-align:center;opacity:0;visibility:hidden;
+  transition:opacity .24s ease,visibility 0s linear .24s;
 }
 .top>*{pointer-events:auto}
-.top:before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(35,40,31,.94),rgba(35,40,31,.62) 48%,rgba(35,40,31,0));
-  -webkit-backdrop-filter:blur(9px) saturate(1.05);backdrop-filter:blur(9px) saturate(1.05);
-  -webkit-mask-image:linear-gradient(180deg,#000 46%,transparent);
-  mask-image:linear-gradient(180deg,#000 46%,transparent);
-}
-.top .name{
-  font-family:var(--display);font-size:clamp(36px,3.2vw,46px);font-weight:650;letter-spacing:0;
-  white-space:nowrap;line-height:1;text-shadow:0 2px 16px rgba(0,0,0,.3);
-}
 .top nav{
-  display:flex;gap:clamp(22px,2.8vw,42px);font-size:clamp(20px,1.7vw,24px);align-items:center;
-  letter-spacing:var(--track-nav);font-weight:600;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  border:0;background:transparent;font-size:var(--type-nav);letter-spacing:.055em;font-weight:600;
+  text-shadow:0 2px 14px rgba(0,0,0,.48);
 }
-.top nav a{color:var(--ink-soft);transition:color .2s}
-.top nav a:hover,.top nav a[aria-current]{color:var(--ink)}
-.top nav .top-socials{
-  display:flex;align-items:center;gap:13px;margin-left:2px;padding-left:clamp(12px,1.6vw,20px);
-  border-left:1px solid var(--hairline);
-}
-.icon-btn{display:inline-flex;align-items:center;justify-content:center;padding:4px;color:var(--ink-soft);transition:color .2s}
-.icon-btn:hover{color:var(--ink)}
-.top .icon-btn svg{width:16px;height:16px;display:block}
+.top-brand{display:none;color:var(--ink);font-family:var(--display);font-size:var(--type-brand);letter-spacing:.015em;white-space:nowrap}
+.top-links{display:flex;gap:30px;align-items:center}
+.top-links>a{position:relative;display:flex;align-items:center;justify-content:center;min-height:34px;padding:0 2px;color:var(--ink-soft);white-space:nowrap;transition:color .2s}
+.top-links>a::after{content:"";position:absolute;left:50%;bottom:0;width:0;height:1px;background:var(--ink);transform:translateX(-50%);transition:width .22s ease}
+.top-links>a:hover{color:var(--ink)}
+.top-links>a:hover::after,.top-links>a[aria-current]::after{width:100%}
+.top-menu{display:none;border:0;background:transparent;color:var(--ink);padding:8px 2px;font:600 14px/1 var(--font);letter-spacing:.05em;cursor:pointer}
+.top-menu span{display:inline-block;margin-left:5px;transition:transform .2s ease}.top-menu[aria-expanded="true"] span{transform:rotate(180deg)}
+.top.is-docked{position:fixed;top:0;left:0;z-index:500;width:100%;padding:0 24px;transform:none;background:linear-gradient(180deg,rgba(57,65,52,.94),rgba(43,51,40,.94));border-bottom:1px solid rgba(216,244,147,.16);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(9,13,8,.12);opacity:1;visibility:visible;transition:opacity .24s ease}
+.top.is-docked nav{justify-content:space-between;width:min(1120px,100%);min-height:58px;margin:0 auto;text-shadow:none}
+.top.is-docked .top-brand{display:block}
+.top.is-docked .top-links{gap:22px}
+.top.is-docked .top-links>a{min-height:38px;padding:0 4px}
 @media (max-width:640px){
-  .top{padding-inline:12px;padding-block:13px 60px;gap:9px}
-  .top .name{max-width:560px;font-size:27px;line-height:1.08;white-space:normal}
-  .top nav{gap:17px;font-size:18px}
-  .top nav .top-socials{gap:9px;padding-left:10px}
-  .top .icon-btn{padding:2px}
-  .top .icon-btn svg{width:14px;height:14px}
+  .top{top:22px;width:calc(100vw - 38px)}
+  .top nav{width:100%;font-size:14px;letter-spacing:.04em}
+  .top-links{display:flex;gap:18px;width:100%;overflow-x:auto;scrollbar-width:none}.top-links::-webkit-scrollbar{display:none}
+  .top-links>a{min-height:32px;padding:0}
+  .top.is-docked{width:100%;padding:0 14px}
+  .top.is-docked nav{display:flex;min-height:54px}
+  .top.is-docked .top-brand{font-size:19px}
+  .top.is-docked .top-menu{display:none}
+  .top.is-docked .top-links{display:flex;gap:12px;width:auto;max-width:64vw;padding:16px 0;opacity:1;pointer-events:auto;transform:none}
+  .top.is-docked .top-links>a{min-height:auto;padding:0}
 }
 
 /* ---------------- hero ---------------- */
 .forest-cover{
   position:relative;display:grid;place-items:center;min-height:100svh;
   padding:clamp(145px,18svh,190px) 24px 92px;text-align:center;isolation:isolate;
+  scroll-snap-align:start;scroll-snap-stop:always;
 }
 .forest-cover::before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(ellipse 43% 55% at 50% 48%,rgba(63,68,59,.9) 0%,rgba(63,68,59,.7) 44%,rgba(63,68,59,.14) 76%,transparent 100%);
 }
-.cover-copy{position:absolute;top:clamp(158px,21svh,232px);left:50%;transform:translateX(-50%);display:grid;justify-items:center;width:min(1220px,96vw);padding:clamp(28px,4vw,52px);text-shadow:0 3px 28px rgba(14,19,12,.45)}
-.cover-copy::before,.cover-copy::after{content:"";display:block;width:min(760px,74vw);height:1px;background:linear-gradient(90deg,transparent,rgba(244,246,238,.3),transparent)}
-.cover-copy::before{margin-bottom:clamp(24px,4vh,42px)}.cover-copy::after{margin-top:clamp(24px,4vh,42px)}
-.cover-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.cover-subtitle{margin:0;font-size:clamp(30px,3vw,42px);font-weight:650;line-height:1.35;letter-spacing:.055em;color:rgba(244,246,238,.94)}
-.cover-down{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);border:0;background:transparent;color:var(--ink);padding:12px 18px;cursor:pointer;animation:cue-breathe 2.6s ease-in-out infinite}
+.cover-copy{position:absolute;top:6.5svh;left:6vw;z-index:2;width:min(1060px,88vw);text-align:left;text-shadow:0 3px 20px rgba(0,0,0,.34)}
+.cover-title{margin:0;font-family:var(--display);font-size:clamp(66px,7.5vw,108px);font-weight:650;line-height:.98;letter-spacing:-.035em}
+.cover-intro{display:grid;gap:8px;width:100%;margin:30px 0 0;color:rgba(244,246,238,.76);font-size:clamp(18px,1.65vw,23px);line-height:1.55;letter-spacing:.025em}
+.cover-intro span{display:block}
+.cover-down,.hero-down{position:absolute;bottom:25px;left:50%;z-index:3;transform:translateX(-50%);display:grid;justify-items:center;gap:7px;width:max-content;padding:10px 18px;border:0;background:transparent;color:var(--ink);cursor:pointer;opacity:.48;-webkit-tap-highlight-color:transparent;animation:cue-breathe 2.8s ease-in-out infinite;transition:opacity .22s ease,transform .22s ease}
+.cover-down span,.hero-down span{font-size:11px;line-height:1;letter-spacing:.16em;white-space:nowrap;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+.cover-down svg,.hero-down svg{width:25px;height:auto;opacity:.72;animation:cue-chevron 2.8s ease-in-out infinite}
+.cover-down:hover,.hero-down:hover{animation:none;opacity:1;transform:translate(-50%,-3px)}
+.cover-down:hover svg,.hero-down:hover svg{animation:none}
 @media (max-width:640px){
   .forest-cover{padding:146px 20px 88px}
-  .cover-copy{top:150px;width:calc(100vw - 24px);padding-inline:8px}
-  .cover-subtitle{font-size:24px;line-height:1.5;letter-spacing:.035em}
+  .cover-copy{top:9svh;left:17px;width:calc(100vw - 34px)}.cover-title{font-size:46px;line-height:1.02}.cover-intro{gap:7px;margin-top:24px;font-size:17px;line-height:1.65}
 }
 .hero{
   position:relative;display:grid;justify-items:center;align-content:center;
-  min-height:100svh;overflow-anchor:none;
-  padding:clamp(112px,13svh,152px) 0 clamp(72px,10svh,120px);
+  min-height:100svh;overflow-x:clip;overflow-anchor:none;
+  padding:58px 0 34px;
+  scroll-snap-align:center;scroll-snap-stop:always;
 }
 .botany{
   position:absolute;bottom:0;width:clamp(120px,15vw,250px);opacity:.5;
@@ -139,23 +146,18 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
   color:rgba(244,246,238,.8);margin:0 0 clamp(22px,3.4vh,40px);text-transform:uppercase;
   text-shadow:0 2px 14px rgba(0,0,0,.45);
 }
-.hero-down{
-  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);border:0;background:transparent;
-  padding:10px 14px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;
-  animation:cue-breathe 2.6s ease-in-out infinite;z-index:3;
-}
-.hero-down:hover{animation:none;opacity:1}
-@keyframes cue-breathe{0%,100%{opacity:.15}50%{opacity:.7}}
-@media (prefers-reduced-motion:reduce){.hero-down{animation:none;opacity:.5}}
+@keyframes cue-breathe{0%,100%{opacity:.34}50%{opacity:.76}}
+@keyframes cue-chevron{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.hero-down,.cover-down,.hero-down svg,.cover-down svg{animation:none}}
 
 /* ---------------- sketchbook ---------------- */
 .hero,.hero *{-webkit-user-select:none;-moz-user-select:none;user-select:none}
 .hero img{-webkit-user-drag:none;user-drag:none}
-.sb-wrap{display:grid;justify-items:center;gap:20px;width:100%;position:relative;z-index:2}
+.sb-wrap{display:grid;justify-items:center;gap:9px;width:100%;position:relative;z-index:2}
 .sb-wrap.turning .loupe,.sb-wrap.turning .zoomwrap{opacity:0!important}
 .sb-stage{
   display:flex;align-items:center;justify-content:center;width:100%;
-  position:relative;
+  position:relative;z-index:1;height:clamp(430px,68svh,620px);
   touch-action:pan-y;
 }
 .sb-arrow{
@@ -164,20 +166,34 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
   -webkit-tap-highlight-color:transparent;z-index:8;
 }
 .sb-arrow:hover{color:var(--ink)}
+.sb-arrow svg{width:11px;height:34px}
 
 /* The box is the book's own untransformed frame: the loupe lives here, on
    the desk, while only .sb-tilt leans and scales underneath it. */
 .sb-3d{
-  position:relative;flex:1 1;min-width:0;max-width:min(1120px,91vw);
+  position:relative;flex:1 1;min-width:0;max-width:min(880px,84vw);
   perspective:1750px;perspective-origin:50% 46%;
 }
 .sb-tilt{
   position:relative;
   transform-style:preserve-3d;
-  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--zoom,1));
+  transform:rotateX(calc(1deg + var(--rx,0deg))) rotateY(var(--ry,0deg)) scale(var(--zoom,1));
   will-change:transform;
 }
 .sb-book{position:relative;width:100%;aspect-ratio:1760/1240;transform-style:preserve-3d;z-index:1}
+.sb-book::before{
+  content:"";position:absolute;z-index:-1;left:5.4%;right:5.4%;top:21.8%;bottom:20.7%;
+  border-radius:7px 7px 15px 15px;
+  background:repeating-linear-gradient(180deg,#d2d8cc 0 1px,#e8ebe2 1px 4px);
+  box-shadow:0 20px 42px rgba(8,12,7,.3),0 3px 0 #b8c0b2,0 6px 0 #99a497;
+  transform:translate3d(0,7px,-12px);
+}
+.sb-book::after{
+  content:"";position:absolute;z-index:8;left:49.67%;top:22.8%;bottom:22.2%;width:.66%;
+  border-radius:50%;pointer-events:none;
+  background:linear-gradient(90deg,rgba(72,84,68,.08),rgba(255,255,255,.58),rgba(59,70,55,.18));
+  box-shadow:0 2px 5px rgba(32,40,29,.14);transform:translateZ(5px);
+}
 /* The book sits on a surface, so its shadow is a soft pool underneath —
    no box, no filter on the artwork, nothing with an edge of its own.
    Both blobs fade to zero well inside their own bounds, and both ease
@@ -359,7 +375,7 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 
 /* ---- controls ---- */
 .sb-tools{
-  display:flex;align-items:center;gap:6px;
+  position:relative;z-index:20;display:flex;align-items:center;gap:6px;
   border:1px solid var(--hairline);border-radius:999px;
   padding:5px 7px;background:rgba(31,37,28,.72);
   -webkit-backdrop-filter:blur(12px) saturate(1.1);backdrop-filter:blur(12px) saturate(1.1);
@@ -375,6 +391,7 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 .tool:disabled{opacity:.32;cursor:default;background:transparent}
 .tool svg{width:15px;height:15px;display:block}
 .tool-sep{width:1px;height:17px;background:var(--hairline);margin:0 2px}
+.tool-sep,#loupeBtn{display:none}
 .zoom-read{
   font-size:11px;letter-spacing:.1em;color:var(--ink-faint);
   min-width:40px;text-align:center;font-variant-numeric:tabular-nums;
@@ -386,17 +403,22 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 .sb-prev{left:0;width:50%}
 .sb-next{right:0;width:50%}
 
-.sb-captions{display:grid;justify-items:center}
+.sb-captions{display:none}
 .sb-captions>*{grid-area:1/1;margin:0}
-.sb-caption{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+.sb-caption{display:grid;justify-items:center;align-content:start;gap:5px;color:var(--ink-soft);
   animation:sb-cap-in .5s ease both}
 .sb-caption.live{animation:none}
+.sb-caption__title{font-family:var(--display);font-size:27px;font-weight:600;line-height:1.05;letter-spacing:.025em;color:var(--ink)}
+.sb-caption__summary{font-size:13px;line-height:1.4;letter-spacing:.06em;color:var(--ink-faint)}
+.sb-caption__open{display:inline-flex;align-items:center;gap:7px;margin-top:5px;padding:6px 12px;border:1px solid var(--hairline);border-radius:999px;font-size:12px;letter-spacing:.08em;color:var(--ink-soft);background:rgba(31,37,28,.42);transition:background .2s,color .2s,border-color .2s}
+.sb-caption__open:hover{color:var(--ink);border-color:rgba(244,246,238,.32);background:rgba(244,246,238,.1)}
 @keyframes sb-cap-in{0%{opacity:0}}
 @keyframes sb-cap-out{to{opacity:0}}
 .sb-hint{
-  margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+  display:none;position:relative;z-index:20;margin:0;font-size:12px;letter-spacing:.1em;color:var(--ink-faint);
   transition:opacity .4s ease;
 }
+.loupe,.zoomwrap{display:none!important}
 .sb-hint.gone{opacity:0}
 .sb-wrap.intro .sb-full img,.sb-wrap.intro .sb-half-img{filter:url(#sb-mblur-1)}
 .sb-wrap.intro.b2 .sb-full img,.sb-wrap.intro.b2 .sb-half-img{filter:url(#sb-mblur-2)}
@@ -404,13 +426,13 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 .sb-wrap.intro .sb-caption.cap-out{display:none}
 @media (max-width:640px){
   .hero-kicker{font-size:10.5px;letter-spacing:.16em}
-  .sb-caption{font-size:13px}
+  .sb-captions{min-height:80px}.sb-caption__title{font-size:23px}.sb-caption__summary{font-size:12px}.sb-caption__open{font-size:11px}
   .sb-wrap{width:100vw;margin-inline:calc(50% - 50vw)}
   .sb-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:70;padding:12px 6px}
   .sb-arrow.left{left:2px}
   .sb-arrow.right{right:2px}
   .sb-3d{max-width:none}
-  .sb-hint{font-size:9.5px;letter-spacing:.1em;padding:0 16px;text-align:center}
+  .sb-hint{font-size:11px;letter-spacing:.08em;padding:0 16px;text-align:center}
 }
 
 /* ---------------- painted rules + sections ---------------- */
@@ -421,52 +443,38 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
   opacity:.5;
 }
 .rule.short{width:min(420px,52vw);opacity:.4}
-.section-label{
-  font-size:11px;letter-spacing:var(--track-caps);text-transform:uppercase;
-  color:var(--ink-faint);margin:0 0 18px;
-}
-.about{
-  position:relative;width:min(920px,88vw);margin-inline:auto;
-  scroll-margin-top:112px;
-  padding:clamp(24px,4vw,42px) clamp(24px,5vw,48px);
-  display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,5vw,60px);align-items:start;
-  background:rgba(28,34,25,.62);border:1px solid rgba(244,246,238,.12);border-radius:28px;
-  -webkit-backdrop-filter:blur(16px) saturate(1.08);backdrop-filter:blur(16px) saturate(1.08);
-  box-shadow:0 24px 70px rgba(0,0,0,.2);
-}
-.bio{font-size:clamp(17px,1.7vw,20px);line-height:1.74;letter-spacing:.005em;margin:0;font-weight:300;max-width:72ch}
-.bio p{margin:0}
-.bio p+p{margin-top:1em}
+.forest-cover + .rule,.hero + .rule{display:none}
 .bio-link{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(244,246,238,.32);
   text-underline-offset:4px;transition:text-decoration-color .2s}
 .bio-link:hover{text-decoration-color:var(--ink)}
-@media (max-width:760px){
-  .about{grid-template-columns:1fr;width:calc(100vw - 28px);margin-inline:14px}
-}
 
 .plates{position:relative;width:min(1220px,96vw);min-height:clamp(650px,86svh,820px);margin:0 auto;scroll-margin-top:116px;overflow:hidden;isolation:isolate}
 .manual-library{position:relative;min-height:inherit;padding:clamp(32px,5vw,68px)}
 .manual-library::before{content:"PORTFOLIO";position:absolute;left:50%;top:46%;z-index:-1;transform:translate(-50%,-50%);font:500 clamp(100px,18vw,250px)/.8 var(--display);letter-spacing:-.07em;color:rgba(244,246,238,.055);white-space:nowrap}
-.library-heading{margin:0;font-family:var(--display);font-size:clamp(42px,5vw,72px);font-weight:600;line-height:1}
-.library-note{margin:13px 0 0;color:var(--ink-soft);font-size:clamp(16px,1.5vw,20px)}
+.library-heading{position:relative;margin:0;padding-bottom:18px;font-family:var(--display);font-size:var(--type-section-title);font-weight:600;line-height:.96;letter-spacing:-.025em}
+.library-heading::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:1px;background:linear-gradient(90deg,rgba(216,231,183,.78),rgba(216,231,183,0))}
+.library-note{max-width:30em;margin:15px 0 0;color:var(--ink-soft);font-size:var(--type-section-copy);line-height:1.55;letter-spacing:.025em}
 .manual-gallery{position:absolute;inset:130px 0 26px;perspective:1500px}
-.manual-card{--cover:#40523d;--foil:#f0eee1;position:absolute;left:var(--x);top:var(--y);z-index:2;width:clamp(178px,20vw,252px);aspect-ratio:.72;color:var(--foil);border-radius:10px 21px 21px 10px;background:linear-gradient(112deg,rgba(255,255,255,.12),transparent 18%),var(--cover);box-shadow:-15px 25px 45px rgba(8,12,7,.34),inset 8px 0 rgba(255,255,255,.055),inset -3px 0 rgba(0,0,0,.18);transform:translate(-50%,-50%) rotate(var(--r)) rotateY(-7deg);transform-style:preserve-3d;transition:transform .48s cubic-bezier(.2,.78,.2,1),box-shadow .42s ease,opacity .34s ease,filter .34s ease;outline:none}
+.manual-card{--cover:#40523d;--foil:#f0eee1;--accent:#c5d7a2;--glow:rgba(197,215,162,.16);--motif:none;position:absolute;left:var(--x);top:var(--y);z-index:2;width:clamp(178px,20vw,252px);aspect-ratio:.72;color:var(--foil);border-radius:10px 21px 21px 10px;background:radial-gradient(circle at 78% 18%,var(--glow),transparent 34%),linear-gradient(112deg,rgba(255,255,255,.13),transparent 18%),var(--cover);box-shadow:-15px 25px 45px rgba(8,12,7,.34),inset 8px 0 rgba(255,255,255,.055),inset -3px 0 rgba(0,0,0,.18);transform:translate(-50%,-50%) rotate(var(--r)) rotateY(-7deg);transform-style:preserve-3d;transition:transform .48s cubic-bezier(.2,.78,.2,1),box-shadow .42s ease,opacity .34s ease,filter .34s ease;outline:none}
 .manual-card::before{content:"";position:absolute;left:13px;top:0;bottom:0;width:1px;background:rgba(244,242,223,.25);box-shadow:4px 0 rgba(0,0,0,.1)}
-.manual-card::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.12);border-radius:inherit;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.014) 4px 5px);pointer-events:none}
+.manual-card::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.12);border-radius:inherit;background:var(--motif),repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.014) 4px 5px);pointer-events:none}
 .manual-card:hover,.manual-card:focus-visible{z-index:12;transform:translate(-50%,calc(-50% - 24px)) rotate(0) rotateY(0) scale(1.045);box-shadow:-12px 38px 65px rgba(8,12,7,.48)}
-.manual-card__index{position:absolute;top:24px;left:34px;font-size:12px;letter-spacing:.2em;opacity:.65}
-.manual-card__kind{position:absolute;top:25px;right:24px;font-size:10px;letter-spacing:.14em;opacity:.55}
-.manual-card__title{position:absolute;left:30px;right:20px;bottom:92px;font-family:var(--display);font-size:clamp(27px,2.8vw,40px);font-weight:600;line-height:1;white-space:nowrap}
-.manual-card__summary{position:absolute;left:34px;right:76px;bottom:31px;font-size:12px;line-height:1.45;letter-spacing:.055em;opacity:.74}
-.manual-card__open{position:absolute;right:22px;bottom:21px;display:grid;width:46px;height:46px;place-items:center;border-radius:50%;background:rgba(245,245,235,.94);color:#273024;font-size:19px;opacity:0;transform:scale(.65);transition:opacity .24s ease,transform .34s cubic-bezier(.2,.78,.2,1)}
-.manual-card:hover .manual-card__open,.manual-card:focus-visible .manual-card__open{opacity:1;transform:scale(1)}
-.manual-card--resume{--x:15%;--y:55%;--r:-8deg;--cover:#304238}.manual-card--about{--x:39%;--y:43%;--r:4deg;--cover:#3c5043}.manual-card--ai{--x:64%;--y:57%;--r:-3deg;--cover:#536449}.manual-card--contact{--x:87%;--y:44%;--r:8deg;--cover:#46584d}
+.manual-card__index{position:absolute;top:24px;left:34px;font-size:var(--type-meta);letter-spacing:.2em;opacity:.65}
+.manual-card__kind{position:absolute;top:25px;right:24px;font-size:var(--type-meta);letter-spacing:.14em;opacity:.55}
+.manual-card__title{position:absolute;left:30px;right:20px;bottom:92px;font-family:var(--display);font-size:var(--type-card-title);font-weight:600;line-height:1.08;white-space:nowrap}
+.manual-card__title::after{content:"";display:block;width:42px;height:1px;margin-top:13px;background:var(--accent);opacity:.88}
+.manual-card__summary{position:absolute;left:34px;right:34px;bottom:28px;font-size:var(--type-card-copy);line-height:1.5;letter-spacing:.025em;opacity:.78}
+.manual-card--resume{--x:15%;--y:55%;--r:-8deg;--cover:#263d34;--accent:#c6d99e;--glow:rgba(198,217,158,.15);--motif:repeating-linear-gradient(90deg,transparent 0 27px,rgba(218,234,190,.025) 27px 28px)}
+.manual-card--about{--x:39%;--y:43%;--r:4deg;--cover:#3c5653;--accent:#b9d7ce;--glow:rgba(185,215,206,.17);--motif:radial-gradient(circle at 78% 22%,transparent 0 34px,rgba(205,230,222,.045) 35px 36px,transparent 37px 54px,rgba(205,230,222,.025) 55px 56px,transparent 57px)}
+.manual-card--ai{--x:62%;--y:57%;--r:-3deg;--cover:#657049;--accent:#d9df8d;--glow:rgba(217,223,141,.18);--motif:linear-gradient(rgba(238,241,182,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(238,241,182,.025) 1px,transparent 1px)}
+.manual-card--ai::after{background-size:22px 22px,22px 22px,auto}
+.manual-card--contact{--x:87%;--y:44%;--r:8deg;--cover:#6a5047;--accent:#e4bea2;--glow:rgba(228,190,162,.18);--motif:repeating-linear-gradient(135deg,transparent 0 22px,rgba(247,220,200,.03) 22px 23px)}
 .manual-gallery[data-leaving="true"] .manual-card:not(.is-launching){opacity:0;filter:blur(5px);transform:translate(-50%,-50%) scale(.82)}
 .manual-card.is-launching{z-index:100;transform:translate(-50%,-50%) rotate(0) rotateY(0) scale(1.42);opacity:0}
 @media (max-width:760px){
-  .plates{width:100%;min-height:780px}.manual-library{padding:30px 18px}.manual-library::before{top:52%;font-size:24vw}.manual-gallery{inset:132px 8px 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));place-items:center;align-content:center;gap:24px 12px}
+  .plates{width:100%;min-height:860px;overflow:visible}.manual-library{padding:30px 18px}.manual-library::before{top:52%;font-size:24vw}.manual-gallery{inset:132px 8px 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));place-items:center;align-content:center;gap:24px 12px}
   .manual-card{position:relative;left:auto;top:auto;width:min(160px,40vw);transform:rotate(var(--r));justify-self:center}.manual-card:hover,.manual-card:focus-visible{transform:translateY(-10px) rotate(0) scale(1.025)}
-  .manual-card__title{left:25px;right:12px;bottom:72px;font-size:26px}.manual-card__summary{left:27px;right:18px;bottom:24px;font-size:10px}.manual-card__kind{display:none}.manual-card__open{display:none}
+  .manual-card__title{left:25px;right:12px;bottom:72px;font-size:25px}.manual-card__summary{left:27px;right:18px;bottom:22px;font-size:11px;line-height:1.45}.manual-card__kind{display:none}
 }
 .plate-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hairline)}
 .plate{
@@ -481,12 +489,7 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 .plate .p{font-size:12.5px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase;text-align:right}
 .plate[aria-current="true"] .p{color:var(--earth)}
 
-.foot{font-size:11.5px;letter-spacing:var(--track-caps);text-transform:uppercase;
-  color:var(--ink-soft);text-align:center;width:max-content;max-width:calc(100vw - 32px);margin:0 auto 44px;
-  scroll-margin-top:112px;
-  padding:13px 20px;background:rgba(28,34,25,.68);border:1px solid rgba(244,246,238,.12);border-radius:999px;
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-.hero-kicker,.section-label,.foot{text-transform:none}
+.hero-kicker,.section-label{text-transform:none}
 </style>
 </head>
 <body>
@@ -495,23 +498,26 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
 <main class="page home">
 
   <header class="top">
-    <a class="name" href="#cover">王祥辉｜互联网招聘与 AI 工具实践作品集</a>
-    <nav>
-      <a href="#about">关于我</a>
-      <a href="#plates">作品目录</a>
-      <a href="#contact">联系我</a>
-      <div class="top-socials">
-        <a href="#contact" class="icon-btn" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.4" y="4.6" width="19.2" height="14.8" rx="2.4"/><path d="m3.2 6.4 8.8 6.6 8.8-6.6"/></svg></a>
+    <nav aria-label="作品集导航">
+      <a class="top-brand" href="#cover">王祥辉｜作品集</a>
+      <div class="top-links" id="topLinks">
+        <a href="#plates" data-main-directory>作品目录</a>
+        <a href="portfolio-detail.html?page=resume">个人简历</a>
+        <a href="portfolio-detail.html?page=about">关于我</a>
+        <a href="portfolio-detail.html?page=ai">AI 应用</a>
+        <a href="portfolio-detail.html?page=contact">联系我</a>
       </div>
+      <button class="top-menu" type="button" aria-expanded="false" aria-controls="topLinks">目录 <span aria-hidden="true">⌄</span></button>
     </nav>
   </header>
 
   <section id="cover" class="forest-cover">
     <div class="cover-copy">
-      <h1 class="cover-title">王祥辉｜互联网招聘与 <span style="white-space:nowrap">AI 工具实践作品集</span></h1>
-      <p class="cover-subtitle">互联网招聘 · 游戏 · AI · 产品设计 · 招聘工具</p>
+      <h1 class="cover-title">Hi，我是王祥辉</h1>
+      <p class="cover-intro"><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
     </div>
     <button class="cover-down" id="coverDown" aria-label="进入作品集">
+      <span>向下进入作品集</span>
       <svg viewBox="0 0 44 22" width="34" height="17" fill="none" aria-hidden="true">
         <polyline points="3,3 22,11 41,3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
         <polyline points="3,11 22,19 41,11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -528,7 +534,7 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
         <filter id="sb-mblur-2"><feGaussianBlur stdDeviation="14 0"/></filter>
       </svg>
       <div class="sb-stage" id="sbStage">
-        <button class="sb-arrow left" id="sbLeft" aria-label="previous page">
+        <button class="sb-arrow left" id="sbLeft" aria-label="上一页">
           <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true"><polyline points="11,3 3,22 11,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="sb-3d" id="sb3d">
@@ -541,22 +547,23 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
           <div class="zoomwrap" id="zoomWrap" aria-hidden="true"><div class="zoominner" id="zoomInner"></div></div>
           <div class="loupe" id="loupe"><span class="grip"></span><span class="ring"><span class="lens" id="loupeLens"><span class="mag" id="loupeMag"></span></span></span></div>
         </div>
-        <button class="sb-arrow right" id="sbRight" aria-label="next page">
+        <button class="sb-arrow right" id="sbRight" aria-label="下一页">
           <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true"><polyline points="3,3 11,22 3,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-      <div class="sb-captions" id="sbCaptions"></div>
+      <div class="sb-captions" id="sbCaptions" hidden></div>
       <div class="sb-tools" role="group" aria-label="view controls">
         <button class="tool" id="zOut" aria-label="zoom out"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8.6" cy="8.6" r="5.6"/><path d="M12.8 12.8 17.4 17.4M6.2 8.6h4.8"/></svg></button>
-        <span class="zoom-read" id="zRead">100%</span>
+        <span class="zoom-read" id="zRead">108%</span>
         <button class="tool" id="zIn" aria-label="zoom in"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8.6" cy="8.6" r="5.6"/><path d="M12.8 12.8 17.4 17.4M6.2 8.6h4.8M8.6 6.2v4.8"/></svg></button>
         <span class="tool-sep" aria-hidden="true"></span>
-        <button class="tool" id="loupeBtn" aria-label="magnifier" aria-pressed="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8.8" cy="8.8" r="5.8"/><path d="M13 13l4.4 4.4"/><path d="M6.4 7.2a3.2 3.2 0 0 1 2.4-1.4" opacity=".55"/></svg></button>
+        <button class="tool" id="loupeBtn" aria-label="magnifier" aria-pressed="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8.8" cy="8.8" r="5.8"/><path d="M13 13l4.4 4.4"/><path d="M6.4 7.2a3.2 3.2 0 0 1 2.4-1.4" opacity=".55"/></svg></button>
       </div>
-      <p class="sb-hint" id="sbHint">拖动书页翻页 · 拖动放大镜查看细节</p>
+      <p class="sb-hint" id="sbHint">点击书页左侧或右侧翻页</p>
     </div>
 
-    <button class="hero-down" id="heroDown" aria-label="scroll to about">
+    <button class="hero-down" id="heroDown" aria-label="前往作品目录">
+      <span>继续查看作品目录</span>
       <svg viewBox="0 0 44 22" width="34" height="17" fill="none" aria-hidden="true">
         <polyline points="3,3 22,11 41,3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
         <polyline points="3,11 22,19 41,11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -564,50 +571,33 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
     </button>
   </section>
 
-  <div class="rule" aria-hidden="true"></div>
-
-  <section id="about" class="about">
-    <div>
-      <p class="section-label">关于我</p>
-      <div class="bio">
-        <p>Hi，你好，我是王祥辉，2024 年本科毕业。</p>
-        <p>在校期间，我曾带队参加商业赛事并获奖；大四休学期间在韩国尝试 3C 产品采购与销售，累计盈利 10W+。这些经历让我较早接触到团队协作、商业判断和从零推进项目的过程。</p>
-        <p>2023 年起从事招聘工作，先后在快手、网易雷火、拼多多、阿里优酷和网易互娱任职，业务覆盖互联网、电商、游戏与 AI。日常工作以社会招聘为主，既负责高阶及难点岗位攻坚，也承担基础岗位的批量交付；同时参与过校招、暑期实习、线下宣讲、招聘运营及雇主品牌项目。</p>
-        <p>工作之外，我持续探索 AI 在招聘场景中的应用，陆续开发了人才寻访、画像分析、简历筛选与问答、候选人跟进和招聘数据分析工具。你正在浏览的这个作品集，也由我借助 AI 完成设计与搭建。</p>
-        <p>平时我喜欢研究小型电子产品，也喜欢徒步、骑行和攀岩。我愿意在不同领域持续尝试、磨练基本功，也期待接触更有挑战的内容，与优秀的人同行。</p>
-      </div>
-    </div>
-  </section>
-
   <div class="rule short" aria-hidden="true"></div>
 
   <section id="plates" class="plates">
     <div class="manual-library">
-      <h2 class="library-heading">作品档案</h2>
+      <h2 class="library-heading">作品目录</h2>
       <p class="library-note">选择一个章节，进入完整页面。</p>
-      <div class="manual-gallery" id="manualGallery" aria-label="四份作品档案">
+      <div class="manual-gallery" id="manualGallery" aria-label="四个作品章节">
         <a class="manual-card manual-card--resume" href="portfolio-detail.html?page=resume">
-          <span class="manual-card__index">01</span><span class="manual-card__kind">PROFILE</span>
-          <strong class="manual-card__title">个人简历</strong><span class="manual-card__summary">经历、招聘成果与业务覆盖</span><span class="manual-card__open">↗</span>
+          <span class="manual-card__index">01</span><span class="manual-card__kind">RESUME</span>
+          <strong class="manual-card__title">个人简历</strong><span class="manual-card__summary">经历、招聘成果与业务覆盖</span>
         </a>
         <a class="manual-card manual-card--about" href="portfolio-detail.html?page=about">
-          <span class="manual-card__index">02</span><span class="manual-card__kind">STORY</span>
-          <strong class="manual-card__title">关于我</strong><span class="manual-card__summary">个人经历、兴趣与工作方式</span><span class="manual-card__open">↗</span>
+          <span class="manual-card__index">02</span><span class="manual-card__kind">ABOUT</span>
+          <strong class="manual-card__title">关于我</strong><span class="manual-card__summary">个人经历、兴趣与工作方式</span>
         </a>
         <a class="manual-card manual-card--ai" href="portfolio-detail.html?page=ai">
-          <span class="manual-card__index">03</span><span class="manual-card__kind">LAB</span>
-          <strong class="manual-card__title">AI 应用</strong><span class="manual-card__summary">寻访、筛选问答、跟进与数据分析</span><span class="manual-card__open">↗</span>
+          <span class="manual-card__index">03</span><span class="manual-card__kind">AI TOOLS</span>
+          <strong class="manual-card__title">AI 应用</strong><span class="manual-card__summary">招聘效能、流程协同与数据复盘</span>
         </a>
         <a class="manual-card manual-card--contact" href="portfolio-detail.html?page=contact">
-          <span class="manual-card__index">04</span><span class="manual-card__kind">HELLO</span>
-          <strong class="manual-card__title">联系我</strong><span class="manual-card__summary">电话、邮箱与交流方式</span><span class="manual-card__open">↗</span>
+          <span class="manual-card__index">04</span><span class="manual-card__kind">CONTACT</span>
+          <strong class="manual-card__title">联系我</strong><span class="manual-card__summary">电话、邮箱与交流方式</span>
         </a>
       </div>
     </div>
   </section>
 
-  <div class="rule short" aria-hidden="true"></div>
-  <p class="foot" id="contact">电话 <a href="tel:13718405405" class="bio-link">137-1840-5405</a> · 邮箱 <a href="mailto:Audbutdela@outlook.com" class="bio-link">Audbutdela@outlook.com</a></p>
 </main>
 
 <script>
@@ -620,12 +610,17 @@ body[data-scene="contact"] .forest-frame{transform:translate3d(0,0,0) scale(1.03
    ===================================================================== */
 const Q=new URLSearchParams(location.search);
 const forestFrame=document.querySelector('.forest-frame');
+const topNav=document.querySelector('.top');
+const topMenu=document.querySelector('.top-menu');
+const mainDirectoryLink=document.querySelector('[data-main-directory]');
+function setTopMenu(open){topNav.classList.toggle('is-open',open);topMenu.setAttribute('aria-expanded',String(open));}
+topMenu.addEventListener('click',()=>setTopMenu(topMenu.getAttribute('aria-expanded')!=='true'));
+document.querySelectorAll('.top-links a').forEach(link=>link.addEventListener('click',()=>setTopMenu(false)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')setTopMenu(false)});
 const sceneSections=[
   ['cover',document.getElementById('cover')],
   ['book',document.getElementById('sketchbook')],
-  ['about',document.getElementById('about')],
-  ['bookshelf',document.getElementById('plates')],
-  ['contact',document.getElementById('contact')]
+  ['bookshelf',document.getElementById('plates')]
 ];
 let sectionRaf=0;
 function resumeForest(){
@@ -642,6 +637,10 @@ function syncSectionScene(){
     if(d<distance){distance=d;nearest=item;}
   });
   document.body.dataset.scene=nearest[0];
+  const docked=document.getElementById('cover').getBoundingClientRect().bottom<=58;
+  topNav.classList.toggle('is-docked',docked);
+  if(docked)mainDirectoryLink.setAttribute('aria-current','page');
+  else{mainDirectoryLink.removeAttribute('aria-current');setTopMenu(false)}
 }
 function queueSectionScene(){if(!sectionRaf)sectionRaf=requestAnimationFrame(syncSectionScene);}
 addEventListener('scroll',queueSectionScene,{passive:true});
@@ -671,16 +670,16 @@ addEventListener('pointerleave',()=>{
   if(win&&win.PointerEvent)win.dispatchEvent(new win.PointerEvent('pointerleave'));
 });
 addEventListener('click',e=>{
-  if(e.target.closest('a,button,.sb-stage,.about,.plates,.foot'))return;
+  if(e.target.closest('a,button,.sb-stage,.plates'))return;
   const win=forestFrame&&forestFrame.contentWindow;
   if(win)win.dispatchEvent(new win.CustomEvent('sylva-burst',{detail:{x:e.clientX,y:e.clientY}}));
 });
 const DIR='portfolio-book/';
 const PAGES=[
-  {file:'01-home.svg',    title:'首页',     place:'个人定位'},
-  {file:'02-resume.svg',  title:'个人简历', place:'工作经历'},
-  {file:'03-tools.svg',   title:'招聘工具', place:'Vibe Coding'},
-  {file:'04-contact.svg', title:'联系我',   place:'电话与邮箱'}
+  {file:'02-resume.svg',  title:'个人简历', summary:'工作经历、招聘成果与业务覆盖', href:'portfolio-detail.html?page=resume'},
+  {file:'01-home.svg',    title:'关于我', summary:'招聘理解、工作方式与个人探索', href:'portfolio-detail.html?page=about'},
+  {file:'03-tools.svg',   title:'AI 应用', summary:'招聘效能、流程协同与数据复盘', href:'portfolio-detail.html?page=ai'},
+  {file:'04-contact.svg', title:'联系我', summary:'小游戏、电话、邮箱与微信', href:'portfolio-detail.html?page=contact'}
 ];
 PAGES.forEach(p=>p.url=DIR+p.file);
 const M=PAGES.length, LAND=0;
@@ -792,12 +791,19 @@ function caption(){
   capBox.textContent='';
   capOut=capIn=null;
   if(turn){
-    capOut=el('p','sb-caption live');capOut.textContent=PAGES[turn.from].title;capBox.appendChild(capOut);
-    capIn=el('p','sb-caption live');capIn.textContent=PAGES[turn.to].title;capBox.appendChild(capIn);
+    capOut=captionEl(turn.from,true);capBox.appendChild(capOut);
+    capIn=captionEl(turn.to,true);capBox.appendChild(capIn);
     fadeCaption(turn.t);
   }else{
-    const p=el('p','sb-caption');p.textContent=PAGES[idx].title;capBox.appendChild(p);
+    capBox.appendChild(captionEl(idx,false));
   }
+}
+function captionEl(i,live){
+  const item=PAGES[i],box=el('div','sb-caption'+(live?' live':''));
+  const title=el('strong','sb-caption__title');title.textContent=item.title;
+  const summary=el('span','sb-caption__summary');summary.textContent=item.summary;
+  const open=el('a','sb-caption__open');open.href=item.href;open.textContent='打开本章 →';
+  box.append(title,summary,open);return box;
 }
 let capOut=null,capIn=null;
 function fadeCaption(t){
@@ -856,11 +862,11 @@ function tick(now){
 function kick(){ if(raf===null){last=performance.now();raf=requestAnimationFrame(tick);} }
 
 /* ------------------------------------------- tilt + zoom of the book */
-const TILT_X=4.5, TILT_Y=7;      /* degrees — deliberately restrained   */
+const TILT_X=1.8, TILT_Y=2.8;    /* slight depth without skewing text   */
 const ZOOM_MIN=0.9, ZOOM_MAX=1.5;
-const view={rx:0,ry:0,z:1, trx:0,try_:0,tz:1};
+const view={rx:0,ry:0,z:1.08, trx:0,try_:0,tz:1.08};
 let viewActive=false;
-let lastZ=1;
+let lastZ=1.08;
 function applyView(){
   sb3d.style.setProperty('--rx',view.rx.toFixed(2)+'deg');
   sb3d.style.setProperty('--ry',view.ry.toFixed(2)+'deg');
@@ -993,10 +999,21 @@ addEventListener('keydown',e=>{
   step(e.key==='ArrowRight'?'next':'prev');
 });
 document.getElementById('coverDown').onclick=()=>{
-  document.getElementById('sketchbook').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('sketchbook').scrollIntoView({behavior:'smooth',block:'center'});
 };
+let coverScrollLocked=false;
+addEventListener('wheel',event=>{
+  if(event.deltaY<=0||scrollY>innerHeight*.35||coverScrollLocked)return;
+  event.preventDefault();
+  coverScrollLocked=true;
+  document.getElementById('sketchbook').scrollIntoView({
+    behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',
+    block:'center'
+  });
+  setTimeout(()=>{coverScrollLocked=false},850);
+},{passive:false});
 document.getElementById('heroDown').onclick=()=>{
-  document.getElementById('about').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('plates').scrollIntoView({behavior:'smooth',block:'start'});
 };
 
 /* --------------------------------------------------- loupe + controls */
@@ -1008,7 +1025,7 @@ const loupeBtn=document.getElementById('loupeBtn');
 const zInBtn=document.getElementById('zIn'), zOutBtn=document.getElementById('zOut');
 const MAG=2.3;
 const DESK=getComputedStyle(document.documentElement).getPropertyValue('--paper').trim()||'#ece7dc';
-let loupeOn=true, lx=null, ly=null, lgrab=null, lTarget=null;
+let loupeOn=false, lx=null, ly=null, lgrab=null, lTarget=null;
 
 function loupeSize(){return Math.round(Math.max(165,Math.min(262,book.clientWidth*0.235)));}
 /* the loupe's own coordinate space: stage pixels in live mode (it sits
