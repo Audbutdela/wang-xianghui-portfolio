@@ -15,7 +15,7 @@
     <line x1="155" y1="586" x2="735" y2="586" stroke="#293126" stroke-opacity=".18"/>
     <text x="155" y="646" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">专注游戏、AI、产品设计与技术人才招聘</text>
     <text x="155" y="690" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">也用代码构建更高效的招聘系统。</text>
-    <text x="155" y="826" fill="#637a55" font-size="22" letter-spacing="3" font-family="Newsreader, STSong, serif">翻页查看简历、招聘工具与联系方式 →</text>
+    <text x="155" y="826" fill="#637a55" font-size="22" letter-spacing="3" font-family="Newsreader, STSong, serif">翻页查看关于我、简历、招聘工具与联系方式 →</text>
   </g>
   <g clip-path="url(#right)" font-family="Newsreader, STSong, serif">
     <rect x="955" y="330" width="600" height="570" rx="42" fill="#dfe6da"/>

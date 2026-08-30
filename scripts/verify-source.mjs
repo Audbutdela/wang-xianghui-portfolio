@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "c66c7dbfd5b7c714668a92a3f44c42681fb2747d297655d6545450c16d4359c1"],
-  ["public/landing-pages/wang-sketchbook.html", "7ab06a43ef8aa440e582b2c3d24d6634bfa1216827032e742c9d1e1b60c44240"],
-  ["public/landing-pages/portfolio-detail.html", "a3b4b91fe3e394fb1787167d9ac62428309bf7e3b14f4a45fbdaf6bf79812f7a"],
+  ["public/landing-pages/wang-sketchbook.html", "0a96e812ac47635d9f35d8fb9affdf2e6e822042502e194428b54f67e3bf85ac"],
+  ["public/landing-pages/portfolio-detail.html", "84b879cc8772a8ced462f75e63956b5651f1aa72dea9bb126c687a6a30007c92"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
@@ -13,7 +13,7 @@ const expected = new Map([
   ["public/landing-pages/meng-to-sketchbook/instrument-serif.woff2", "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d"],
   ["public/landing-pages/meng-to-sketchbook/instrument-serif-italic.woff2", "6ee678c33f388dd7ba59700ebea635deb98821baafd817b09891f7927177f702"],
   ["public/landing-pages/meng-to-sketchbook/newsreader.woff2", "01817351be3edfc1714fe6d60ddea6a22a169a5ebd033b50c7f9495e5d9c386a"],
-  ["public/landing-pages/portfolio-book/01-home.svg", "9f0314820ee67e69f75f303cd9b7a91562e00e9eaa6334444052efdef55ab5c8"],
+  ["public/landing-pages/portfolio-book/01-home.svg", "de49629b8ba1e0920db51b74e5d8e57e371f0333a7e0853dfdaf49fe3347f2c3"],
   ["public/landing-pages/portfolio-book/02-resume.svg", "723c7c2d4aab7940d326cb43ad07dc8fa1f348861bc644f90aa6043b6d1a622f"],
   ["public/landing-pages/portfolio-book/03-tools.svg", "43b38423e024c321eadb67ccea6239536e661b0144fae8d2674e616f1f747f1c"],
   ["public/landing-pages/portfolio-book/04-contact.svg", "4b28c9fb4498e1ee6a1bc5fdee9d50876de155f9b327860eaa9e3736f00ed3ea"],

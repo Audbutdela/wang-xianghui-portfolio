@@ -448,8 +448,8 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
   text-underline-offset:4px;transition:text-decoration-color .2s}
 .bio-link:hover{text-decoration-color:var(--ink)}
 
-.plates{position:relative;width:min(1220px,96vw);min-height:clamp(650px,86svh,820px);margin:0 auto;scroll-margin-top:116px;overflow:hidden;isolation:isolate}
-.manual-library{position:relative;min-height:inherit;padding:clamp(32px,5vw,68px)}
+.plates{position:relative;width:100%;min-height:clamp(650px,86svh,820px);margin:0;scroll-margin-top:58px;overflow:hidden;isolation:isolate;background:#343a32;border-top:1px solid rgba(216,244,147,.12)}
+.manual-library{position:relative;width:min(1220px,96vw);min-height:inherit;margin:0 auto;padding:clamp(32px,5vw,68px)}
 .manual-library::before{content:"PORTFOLIO";position:absolute;left:50%;top:46%;z-index:-1;transform:translate(-50%,-50%);font:500 clamp(100px,18vw,250px)/.8 var(--display);letter-spacing:-.07em;color:rgba(244,246,238,.055);white-space:nowrap}
 .library-heading{position:relative;margin:0;padding-bottom:18px;font-family:var(--display);font-size:var(--type-section-title);font-weight:600;line-height:.96;letter-spacing:-.025em}
 .library-heading::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:1px;background:linear-gradient(90deg,rgba(216,231,183,.78),rgba(216,231,183,0))}
@@ -464,8 +464,8 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
 .manual-card__title{position:absolute;left:30px;right:20px;bottom:92px;font-family:var(--display);font-size:var(--type-card-title);font-weight:600;line-height:1.08;white-space:nowrap}
 .manual-card__title::after{content:"";display:block;width:42px;height:1px;margin-top:13px;background:var(--accent);opacity:.88}
 .manual-card__summary{position:absolute;left:34px;right:34px;bottom:28px;font-size:var(--type-card-copy);line-height:1.5;letter-spacing:.025em;opacity:.78}
-.manual-card--resume{--x:15%;--y:55%;--r:-8deg;--cover:#263d34;--accent:#c6d99e;--glow:rgba(198,217,158,.15);--motif:repeating-linear-gradient(90deg,transparent 0 27px,rgba(218,234,190,.025) 27px 28px)}
-.manual-card--about{--x:39%;--y:43%;--r:4deg;--cover:#3c5653;--accent:#b9d7ce;--glow:rgba(185,215,206,.17);--motif:radial-gradient(circle at 78% 22%,transparent 0 34px,rgba(205,230,222,.045) 35px 36px,transparent 37px 54px,rgba(205,230,222,.025) 55px 56px,transparent 57px)}
+.manual-card--about{--x:15%;--y:55%;--r:-8deg;--cover:#3c5653;--accent:#b9d7ce;--glow:rgba(185,215,206,.17);--motif:radial-gradient(circle at 78% 22%,transparent 0 34px,rgba(205,230,222,.045) 35px 36px,transparent 37px 54px,rgba(205,230,222,.025) 55px 56px,transparent 57px)}
+.manual-card--resume{--x:39%;--y:43%;--r:4deg;--cover:#263d34;--accent:#c6d99e;--glow:rgba(198,217,158,.15);--motif:repeating-linear-gradient(90deg,transparent 0 27px,rgba(218,234,190,.025) 27px 28px)}
 .manual-card--ai{--x:62%;--y:57%;--r:-3deg;--cover:#657049;--accent:#d9df8d;--glow:rgba(217,223,141,.18);--motif:linear-gradient(rgba(238,241,182,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(238,241,182,.025) 1px,transparent 1px)}
 .manual-card--ai::after{background-size:22px 22px,22px 22px,auto}
 .manual-card--contact{--x:87%;--y:44%;--r:8deg;--cover:#6a5047;--accent:#e4bea2;--glow:rgba(228,190,162,.18);--motif:repeating-linear-gradient(135deg,transparent 0 22px,rgba(247,220,200,.03) 22px 23px)}
@@ -502,8 +502,8 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
       <a class="top-brand" href="#cover">王祥辉｜作品集</a>
       <div class="top-links" id="topLinks">
         <a href="#plates" data-main-directory>作品目录</a>
-        <a href="portfolio-detail.html?page=resume">个人简历</a>
         <a href="portfolio-detail.html?page=about">关于我</a>
+        <a href="portfolio-detail.html?page=resume">个人简历</a>
         <a href="portfolio-detail.html?page=ai">AI 应用</a>
         <a href="portfolio-detail.html?page=contact">联系我</a>
       </div>
@@ -578,13 +578,13 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
       <h2 class="library-heading">作品目录</h2>
       <p class="library-note">选择一个章节，进入完整页面。</p>
       <div class="manual-gallery" id="manualGallery" aria-label="四个作品章节">
-        <a class="manual-card manual-card--resume" href="portfolio-detail.html?page=resume">
-          <span class="manual-card__index">01</span><span class="manual-card__kind">RESUME</span>
-          <strong class="manual-card__title">个人简历</strong><span class="manual-card__summary">经历、招聘成果与业务覆盖</span>
-        </a>
         <a class="manual-card manual-card--about" href="portfolio-detail.html?page=about">
-          <span class="manual-card__index">02</span><span class="manual-card__kind">ABOUT</span>
+          <span class="manual-card__index">01</span><span class="manual-card__kind">ABOUT</span>
           <strong class="manual-card__title">关于我</strong><span class="manual-card__summary">个人经历、兴趣与工作方式</span>
+        </a>
+        <a class="manual-card manual-card--resume" href="portfolio-detail.html?page=resume">
+          <span class="manual-card__index">02</span><span class="manual-card__kind">RESUME</span>
+          <strong class="manual-card__title">个人简历</strong><span class="manual-card__summary">招聘经验、业务覆盖与工作成果</span>
         </a>
         <a class="manual-card manual-card--ai" href="portfolio-detail.html?page=ai">
           <span class="manual-card__index">03</span><span class="manual-card__kind">AI TOOLS</span>
@@ -676,8 +676,8 @@ addEventListener('click',e=>{
 });
 const DIR='portfolio-book/';
 const PAGES=[
-  {file:'02-resume.svg',  title:'个人简历', summary:'工作经历、招聘成果与业务覆盖', href:'portfolio-detail.html?page=resume'},
   {file:'01-home.svg',    title:'关于我', summary:'招聘理解、工作方式与个人探索', href:'portfolio-detail.html?page=about'},
+  {file:'02-resume.svg',  title:'个人简历', summary:'招聘经验、业务覆盖与工作成果', href:'portfolio-detail.html?page=resume'},
   {file:'03-tools.svg',   title:'AI 应用', summary:'招聘效能、流程协同与数据复盘', href:'portfolio-detail.html?page=ai'},
   {file:'04-contact.svg', title:'联系我', summary:'小游戏、电话、邮箱与微信', href:'portfolio-detail.html?page=contact'}
 ];

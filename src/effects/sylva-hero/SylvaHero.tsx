@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
-const SOURCE_URL = "/landing-pages/wang-sketchbook.html?nointro=1";
+const SOURCE_URL = "./landing-pages/wang-sketchbook.html?nointro=1";
 const SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-same-origin allow-scripts";
 const STYLE_ID = "threeui-page-typography";
 
