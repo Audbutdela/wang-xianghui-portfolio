@@ -885,7 +885,7 @@
     <!-- card 1 sits *behind* the canvas so the moss drapes over its shoulder -->
     <article class="card card--about mask" id="about-card" style="--d:760ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="920">
-        <span class="portal-media"><img class="avatar-art" src="inner-green-assets/wang-and-cat-transparent.png" alt="王祥辉和他的小猫的 Q 版插画" loading="eager" decoding="async"></span>
+        <span class="portal-media"><img class="avatar-art" src="inner-green-assets/wang-and-cat-720.webp" alt="王祥辉和他的小猫的 Q 版插画" loading="lazy" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
       <p class="label">关于我</p>
@@ -977,7 +977,7 @@
       <p class="label">招聘工具</p>
       <h2>用代码提升招聘效率</h2>
       <figure class="portal" data-delay="1080">
-        <span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="eager" decoding="async"></span>
+        <span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="lazy" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
       <button class="knob" aria-label="联系王祥辉了解招聘工具" onclick="location.href='mailto:Audbutdela@outlook.com?subject=想了解你的招聘工具'">
@@ -1049,7 +1049,7 @@
           <a href="mailto:Audbutdela@outlook.com"><strong>Audbutdela@outlook.com</strong><span>发送邮件</span></a>
         </div>
       </div>
-      <img class="contact-portrait" src="inner-green-assets/wang-and-cat-transparent.png" alt="王祥辉和他的小猫的 Q 版插画">
+      <img class="contact-portrait" src="inner-green-assets/wang-and-cat-720.webp" alt="王祥辉和他的小猫的 Q 版插画" loading="lazy" decoding="async">
     </div>
   </section>
 </main>
@@ -1894,6 +1894,9 @@ window.__seek   = v => { clock = v; drawn = null; };
   'use strict';
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MOBILE_QUALITY = /[?&]quality=mobile(?:&|$)/.test(location.search);
+  var fpsMatch = /[?&]fps=(\d+)/.exec(location.search);
+  var TARGET_FRAME_MS = 1000 / Math.max(15, Math.min(60, fpsMatch ? +fpsMatch[1] : (MOBILE_QUALITY ? 30 : 60)));
 
   /* ── pointer parallax ───────────────────────────────────────────────
      Every layer that carries a --pd gets .par; the loop writes the eased
@@ -1922,7 +1925,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     (function loop() { requestAnimationFrame(loop); tick(); })();
   }
 
-  var lastTick = 0;
+  var lastTick = 0, lastRenderAt = 0;
   function tick() {
     var now = performance.now();
     var dtUI = lastTick ? Math.min((now - lastTick) / 1000, 0.05) : 0.016;
@@ -1943,7 +1946,10 @@ window.__seek   = v => { clock = v; drawn = null; };
         heroEl.style.setProperty('--py', ny);
       }
     }
-    if (renderer && clock && !scenePaused) renderFrame();
+    if (renderer && clock && !scenePaused && !document.hidden && now - lastRenderAt >= TARGET_FRAME_MS) {
+      lastRenderAt = now;
+      renderFrame();
+    }
   }
 
   function startParallax() {
@@ -3586,7 +3592,7 @@ window.__seek   = v => { clock = v; drawn = null; };
    * ================================================================== */
   function build() {
     var narrow = NARROW.matches;
-    var small = narrow || (window.innerWidth * window.innerHeight) < 620000;
+    var small = MOBILE_QUALITY || narrow || (window.innerWidth * window.innerHeight) < 620000;
     var BLADES_NEAR = small ? 70000 : 190000;
     var BLADES_FAR  = small ? 20000 :  60000;
 
@@ -3595,7 +3601,7 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !small });
     renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MOBILE_QUALITY ? 1.15 : (small ? 1.5 : 1.8)));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.30;
     if ('sRGBEncoding' in THREE) renderer.outputEncoding = THREE.sRGBEncoding;
@@ -3627,7 +3633,7 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     nearGroup = assembleRoot(nearLimbs, {
       aspect: ARCH.aspect, haze: 0.15, fog: 0.0, alpha: 1.0, order: 2,
-      blades: BLADES_NEAR, ferns: small ? 26 : 46, flowers: small ? 120 : 260,
+      blades: BLADES_NEAR, ferns: MOBILE_QUALITY ? 14 : (small ? 24 : 42), flowers: MOBILE_QUALITY ? 60 : (small ? 110 : 230),
       fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: true,
       mouse: uMouseNear, mouseR: 1.20
     });
@@ -3643,7 +3649,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       /* dimmer air than the near root's: at 0.46 of the pale tone the ridge
          lost its silhouette entirely and read as a smudge on the background */
       hazeCol: [0.150, 0.164, 0.120], hazeLift: 0.92,
-      blades: BLADES_FAR, ferns: small ? 8 : 16, flowers: small ? 40 : 90,
+      blades: BLADES_FAR, ferns: MOBILE_QUALITY ? 4 : (small ? 8 : 14), flowers: MOBILE_QUALITY ? 18 : (small ? 36 : 78),
       fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],
       mask: [0.4, 3.4, 0.0, 0.42], wire: true,
       mouse: uMouseFar, mouseR: 1.4
@@ -3696,7 +3702,7 @@ window.__seek   = v => { clock = v; drawn = null; };
        no matter how many there are. Sizes follow a power law — a few big
        soft ones near the lens, a great many specks behind them — and they
        depth-test against the moss so the ones behind the root are hidden. */
-    var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 1500 : 4200;
+    var COUNT = MOBILE_QUALITY ? 700 : ((NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 1300 : 3400);
     var pos = new Float32Array(COUNT * 3);
     var seed = new Float32Array(COUNT * 4);
     for (var i = 0; i < COUNT; i++) {

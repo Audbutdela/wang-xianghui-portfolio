@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#343a32">
 <title>王祥辉 — 互联网招聘作品集</title>
 <meta name="description" content="王祥辉的互联网招聘作品集：个人简历、招聘工具与联系方式。">
 <style>
-@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:block;
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;
   src:url(meng-to-sketchbook/instrument-serif.woff2) format('woff2')}
-@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:block;
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;
   src:url(meng-to-sketchbook/instrument-serif-italic.woff2) format('woff2')}
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 600;font-display:swap;
   src:url(meng-to-sketchbook/newsreader.woff2) format('woff2')}
@@ -476,6 +477,45 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
   .manual-card{position:relative;left:auto;top:auto;width:min(160px,40vw);transform:rotate(var(--r));justify-self:center}.manual-card:hover,.manual-card:focus-visible{transform:translateY(-10px) rotate(0) scale(1.025)}
   .manual-card__title{left:25px;right:12px;bottom:72px;font-size:25px}.manual-card__summary{left:27px;right:18px;bottom:22px;font-size:11px;line-height:1.45}.manual-card__kind{display:none}
 }
+
+/* Phone layout: keep the living forest, replace the desktop page-turning
+   surface with a direct, touch-sized chapter directory. */
+@media (max-width:760px), (pointer:coarse) and (max-width:900px){
+  :root{--type-brand:20px;--type-nav:14px;--type-section-title:clamp(42px,12vw,54px);--type-section-copy:17px}
+  html{scroll-snap-type:y mandatory}
+  .forest-frame{inset:-2%;width:104%;height:104%;transform:translate3d(0,0,0);filter:saturate(.94) brightness(.94)}
+  .wash{background:radial-gradient(ellipse at 50% 42%,transparent 35%,rgba(20,24,18,.2) 100%)}
+  .top.is-docked{padding:0 16px}
+  .top.is-docked nav{display:grid;grid-template-columns:1fr;gap:10px;min-height:96px;padding:12px 0 10px}
+  .top.is-docked .top-brand{font-size:20px;line-height:1.05;text-align:left}
+  .top.is-docked .top-links{display:flex;width:100%;max-width:none;gap:22px;padding:0 0 4px;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .top.is-docked .top-links>a{flex:0 0 auto;min-height:34px;font-size:14px;scroll-snap-align:start}
+  .forest-cover{min-height:100svh;padding:132px 20px 94px;text-align:left}
+  .forest-cover::before{background:radial-gradient(ellipse 78% 48% at 43% 29%,rgba(55,62,52,.84),rgba(55,62,52,.38) 58%,transparent 100%)}
+  .cover-copy{top:max(76px,9svh);left:20px;width:calc(100vw - 40px);text-align:left}
+  .cover-title{width:100%;max-width:none;font-size:clamp(46px,13vw,58px);line-height:.98;letter-spacing:-.025em}
+  .cover-title span{display:block;white-space:nowrap}
+  .cover-intro{width:min(21em,100%);gap:11px;margin-top:28px;font-size:18px;line-height:1.65;letter-spacing:.015em}
+  .cover-down{bottom:max(24px,env(safe-area-inset-bottom));min-width:168px;min-height:52px}
+  .hero{display:none}
+  .plates{min-height:100svh;scroll-margin-top:0;scroll-snap-align:start;overflow:hidden}
+  .manual-library{width:100%;min-height:100svh;padding:126px 18px max(42px,env(safe-area-inset-bottom))}
+  .manual-library::before{top:42%;font-size:27vw;opacity:.7}
+  .library-heading{font-size:var(--type-section-title);line-height:.96;padding-bottom:17px}
+  .library-note{max-width:none;margin-top:14px;font-size:var(--type-section-copy);line-height:1.6}
+  .manual-gallery{position:relative;inset:auto;display:grid;grid-template-columns:1fr;gap:13px;margin-top:30px;perspective:none}
+  .manual-card{position:relative;left:auto;top:auto;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto auto;width:100%;min-height:142px;aspect-ratio:auto;padding:22px 50px 21px 28px;border-radius:10px 23px 23px 10px;transform:none;box-shadow:-8px 14px 28px rgba(8,12,7,.27),inset 7px 0 rgba(255,255,255,.055),inset -2px 0 rgba(0,0,0,.16)}
+  .manual-card::before{left:14px}
+  .manual-card:hover,.manual-card:focus-visible{transform:translateY(-3px);box-shadow:-8px 18px 34px rgba(8,12,7,.34)}
+  .manual-card__index{position:static;grid-column:1;grid-row:1/4;align-self:start;padding-top:2px;font-size:12px}
+  .manual-card__kind{position:static;display:block;grid-column:2;grid-row:1;font-size:10px;letter-spacing:.16em}
+  .manual-card__title{position:static;grid-column:2;grid-row:2;margin:8px 0 9px;font-size:31px;line-height:1;white-space:normal}
+  .manual-card__title::after{display:none}
+  .manual-card__summary{position:static;grid-column:2;grid-row:3;font-size:15px;line-height:1.48;letter-spacing:.015em}
+  .manual-card__summary::after{content:" →";color:var(--accent);font-weight:600}
+  .manual-gallery[data-leaving="true"] .manual-card:not(.is-launching){transform:none}
+  .manual-card.is-launching{transform:translateX(10px);opacity:0}
+}
 .plate-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hairline)}
 .plate{
   display:grid;grid-template-columns:3.4em minmax(0,1fr) auto;gap:18px;align-items:baseline;
@@ -493,7 +533,16 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
 </style>
 </head>
 <body>
-<iframe class="forest-frame" src="inner-green-3d.html?scene-only=1&amp;blades=65000" title="森林动态背景" aria-hidden="true" tabindex="-1"></iframe>
+<iframe class="forest-frame" title="森林动态背景" aria-hidden="true" tabindex="-1"></iframe>
+<script>
+  (function(){
+    var mobile=matchMedia('(max-width:760px), (pointer:coarse) and (max-width:900px)').matches;
+    document.documentElement.dataset.layout=mobile?'mobile':'desktop';
+    document.currentScript.previousElementSibling.src=mobile
+      ?'inner-green-3d.html?scene-only=1&blades=22000&quality=mobile&fps=30'
+      :'inner-green-3d.html?scene-only=1&blades=52000&fps=45';
+  })();
+</script>
 <div class="wash" aria-hidden="true"></div>
 <main class="page home">
 
@@ -513,7 +562,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
 
   <section id="cover" class="forest-cover">
     <div class="cover-copy">
-      <h1 class="cover-title">Hi，我是王祥辉</h1>
+      <h1 class="cover-title"><span>Hi，我是</span><span>王祥辉</span></h1>
       <p class="cover-intro"><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
     </div>
     <button class="cover-down" id="coverDown" aria-label="进入作品集">
@@ -609,6 +658,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
    the way paper bends instead of pivoting like a flat door.
    ===================================================================== */
 const Q=new URLSearchParams(location.search);
+const MOBILE_MODE=matchMedia('(max-width:760px), (pointer:coarse) and (max-width:900px)').matches;
 const forestFrame=document.querySelector('.forest-frame');
 const topNav=document.querySelector('.top');
 const topMenu=document.querySelector('.top-menu');
@@ -617,7 +667,10 @@ function setTopMenu(open){topNav.classList.toggle('is-open',open);topMenu.setAtt
 topMenu.addEventListener('click',()=>setTopMenu(topMenu.getAttribute('aria-expanded')!=='true'));
 document.querySelectorAll('.top-links a').forEach(link=>link.addEventListener('click',()=>setTopMenu(false)));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')setTopMenu(false)});
-const sceneSections=[
+const sceneSections=MOBILE_MODE?[
+  ['cover',document.getElementById('cover')],
+  ['bookshelf',document.getElementById('plates')]
+]:[
   ['cover',document.getElementById('cover')],
   ['book',document.getElementById('sketchbook')],
   ['bookshelf',document.getElementById('plates')]
@@ -999,7 +1052,7 @@ addEventListener('keydown',e=>{
   step(e.key==='ArrowRight'?'next':'prev');
 });
 document.getElementById('coverDown').onclick=()=>{
-  document.getElementById('sketchbook').scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById(MOBILE_MODE?'plates':'sketchbook').scrollIntoView({behavior:'smooth',block:MOBILE_MODE?'start':'center'});
 };
 let coverScrollLocked=false;
 addEventListener('wheel',event=>{
@@ -1190,6 +1243,7 @@ function startIntro(){
 /* ------------------------------------------------------------- boot */
 (async function boot(){
   idx=Q.has('shot')?(parseInt(Q.get('shot'),10)||0)%M:0;
+  if(MOBILE_MODE){document.body.dataset.ready='1';return;}
   paint();applyView();
   await Promise.all(PAGES.map(p=>{
     const im=new Image();im.src=p.url;
