@@ -2,9 +2,9 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
 const expected = new Map([
-  ["public/landing-pages/inner-green-3d.html", "2d16133354e870600f49ac83e8f814a1db109056f1384003defa43272651379e"],
-  ["public/landing-pages/wang-sketchbook.html", "2e1b4694ae3ac2543de0cd6f955200ab468ea7a96194e292df6173bf43d2dfd6"],
-  ["public/landing-pages/portfolio-detail.html", "fd347ccddd8102e2e492c879d16cf0a65437cea44a7c4bf53f7c6e0bacf56f0e"],
+  ["public/landing-pages/inner-green-3d.html", "46074e9424c1954622ee54ad47239fd9bc0414d00448373b100bd03bee1c03c3"],
+  ["public/landing-pages/wang-sketchbook.html", "459f1e9df9e25a8c62aaff0e09172cd8fbb45ff97f4d1fb0c1c17d1dc565bb5d"],
+  ["public/landing-pages/portfolio-detail.html", "eef735ec42a5f42906ddfc22bf35b9ba699639d6cad8b0568eca1255523e4ff7"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
@@ -16,7 +16,7 @@ const expected = new Map([
   ["public/landing-pages/meng-to-sketchbook/newsreader.woff2", "01817351be3edfc1714fe6d60ddea6a22a169a5ebd033b50c7f9495e5d9c386a"],
   ["public/landing-pages/portfolio-book/01-home.svg", "de49629b8ba1e0920db51b74e5d8e57e371f0333a7e0853dfdaf49fe3347f2c3"],
   ["public/landing-pages/portfolio-book/02-resume.svg", "723c7c2d4aab7940d326cb43ad07dc8fa1f348861bc644f90aa6043b6d1a622f"],
-  ["public/landing-pages/portfolio-book/03-tools.svg", "43b38423e024c321eadb67ccea6239536e661b0144fae8d2674e616f1f747f1c"],
+  ["public/landing-pages/portfolio-book/03-tools.svg", "fd26be7a5b52321a9c1a4c5031bcd2fb31b617bb7138d4af12c7444a240cb2f2"],
   ["public/landing-pages/portfolio-book/04-contact.svg", "4b28c9fb4498e1ee6a1bc5fdee9d50876de155f9b327860eaa9e3736f00ed3ea"],
   ["public/landing-pages/portfolio-book/cat-player.png", "01757608cf54fb55ff2c064a84913b16d874b444966f9b7869c13f8e51f4cdd8"],
   ["public/landing-pages/portfolio-book/cat-player-360.webp", "fcd6fa3c0634598aa369af2b671255a323f03d1c035b07aa76e125707040bcb2"],

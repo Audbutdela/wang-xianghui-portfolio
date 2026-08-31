@@ -183,11 +183,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
 }
 .sb-book{position:relative;width:100%;aspect-ratio:1760/1240;transform-style:preserve-3d;z-index:1}
 .sb-book::before{
-  content:"";position:absolute;z-index:-1;left:5.4%;right:5.4%;top:21.8%;bottom:20.7%;
-  border-radius:7px 7px 15px 15px;
-  background:repeating-linear-gradient(180deg,#d2d8cc 0 1px,#e8ebe2 1px 4px);
-  box-shadow:0 20px 42px rgba(8,12,7,.3),0 3px 0 #b8c0b2,0 6px 0 #99a497;
-  transform:translate3d(0,7px,-12px);
+  content:none;
 }
 .sb-book::after{
   content:"";position:absolute;z-index:8;left:49.67%;top:22.8%;bottom:22.2%;width:.66%;
@@ -538,9 +534,17 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
   (function(){
     var mobile=matchMedia('(max-width:760px), (pointer:coarse) and (max-width:900px)').matches;
     document.documentElement.dataset.layout=mobile?'mobile':'desktop';
-    document.currentScript.previousElementSibling.src=mobile
-      ?'inner-green-3d.html?scene-only=1&blades=22000&quality=mobile&fps=30'
+    var frame=document.currentScript.previousElementSibling;
+    var source=mobile
+      ?'inner-green-3d.html?scene-only=1&blades=10000&quality=mobile&fps=20'
       :'inner-green-3d.html?scene-only=1&blades=52000&fps=45';
+    var loadForest=function(){if(!frame.src)frame.src=source};
+    if(mobile){
+      setTimeout(function(){
+        if('requestIdleCallback' in window)requestIdleCallback(loadForest,{timeout:900});
+        else loadForest();
+      },180);
+    }else loadForest();
   })();
 </script>
 <div class="wash" aria-hidden="true"></div>
@@ -1256,7 +1260,14 @@ function startIntro(){
     if(Q.has('t')){startTurn(Q.get('dir')||'next',parseFloat(Q.get('t')));}
     return;
   }
-  setTimeout(startIntro,220);
+  if('IntersectionObserver' in window){
+    const introObserver=new IntersectionObserver(entries=>{
+      if(!entries.some(entry=>entry.isIntersecting))return;
+      introObserver.disconnect();
+      setTimeout(startIntro,180);
+    },{threshold:.42});
+    introObserver.observe(document.getElementById('sketchbook'));
+  }else setTimeout(startIntro,220);
 })();
 </script>
 </body>

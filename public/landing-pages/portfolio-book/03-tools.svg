@@ -4,15 +4,15 @@
   <text x="150" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">招聘工具 · 01—03</text>
   <text x="150" y="400" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把重复工作交给工具，</text><text x="150" y="458" fill="#293126" font-size="49" font-family="Instrument Serif, STSong, serif">把时间留给判断。</text>
   <g font-family="Newsreader, STSong, serif">
-    <rect x="145" y="520" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="558" fill="#637a55" font-size="18">01</text><text x="220" y="560" fill="#293126" font-size="27" font-weight="600">BOSS／脉脉招聘工作台</text><text x="220" y="596" fill="#596255" font-size="21">多平台信息、重点人选与每日待办</text>
-    <rect x="145" y="650" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="688" fill="#637a55" font-size="18">02</text><text x="220" y="690" fill="#293126" font-size="27" font-weight="600">简历分析与问答助手</text><text x="220" y="726" fill="#596255" font-size="21">提炼经历，围绕简历证据追问</text>
-    <rect x="145" y="780" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="818" fill="#637a55" font-size="18">03</text><text x="220" y="820" fill="#293126" font-size="27" font-weight="600">面试排期预订</text><text x="220" y="856" fill="#596255" font-size="21">协调候选人与面试官时间</text>
+    <rect x="145" y="520" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="558" fill="#637a55" font-size="18">01</text><text x="220" y="560" fill="#293126" font-size="27" font-weight="600">人才寻访与运营工作台</text><text x="220" y="596" fill="#596255" font-size="21">记录、活跃度、跟进与 Mapping</text>
+    <rect x="145" y="650" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="688" fill="#637a55" font-size="18">02</text><text x="220" y="690" fill="#293126" font-size="27" font-weight="600">招聘数据分析与业务复盘</text><text x="220" y="726" fill="#596255" font-size="21">看板、漏斗、时长与结果回看</text>
+    <rect x="145" y="780" width="620" height="112" rx="18" fill="#dfe6da"/><text x="175" y="818" fill="#637a55" font-size="18">03</text><text x="220" y="820" fill="#293126" font-size="27" font-weight="600">画像、简历分析与证据问答</text><text x="220" y="856" fill="#596255" font-size="21">提取依据，保留人工判断</text>
   </g>
   <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">招聘工具 · 04—06</text>
   <g font-family="Newsreader, STSong, serif">
-    <rect x="950" y="390" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="432" fill="#637a55" font-size="18">04</text><text x="1025" y="434" fill="#293126" font-size="27" font-weight="600">招聘数据与转化漏斗</text><text x="1025" y="472" fill="#596255" font-size="21">识别关键节点的效率问题</text>
-    <rect x="950" y="548" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="590" fill="#637a55" font-size="18">05</text><text x="1025" y="592" fill="#293126" font-size="27" font-weight="600">人才库回捞与流程协同</text><text x="1025" y="630" fill="#596255" font-size="21">盘活存量人才并及时推进</text>
-    <rect x="950" y="706" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="748" fill="#637a55" font-size="18">06</text><text x="1025" y="750" fill="#293126" font-size="27" font-weight="600">流程人选定期跟进</text><text x="1025" y="788" fill="#596255" font-size="21">节点提醒，降低遗忘与停滞</text>
+    <rect x="950" y="390" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="432" fill="#637a55" font-size="18">04</text><text x="1025" y="434" fill="#293126" font-size="27" font-weight="600">流程处理与异常提醒</text><text x="1025" y="472" fill="#596255" font-size="21">汇总状态，按紧急程度生成待办</text>
+    <rect x="950" y="548" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="590" fill="#637a55" font-size="18">05</text><text x="1025" y="592" fill="#293126" font-size="27" font-weight="600">校招批量面试排期</text><text x="1025" y="630" fill="#596255" font-size="21">时间、会议室与轮次协同</text>
+    <rect x="950" y="706" width="610" height="132" rx="18" fill="#dfe6da"/><text x="980" y="748" fill="#637a55" font-size="18">06</text><text x="1025" y="750" fill="#293126" font-size="27" font-weight="600">个人知识库与硬件探索</text><text x="1025" y="788" fill="#596255" font-size="21">语音、记忆与实体交互验证</text>
   </g>
   <rect x="842" y="270" width="76" height="701" fill="url(#g)"/>
 </svg>
