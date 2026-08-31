@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
-  ["public/landing-pages/wang-sketchbook.html", "4fb06bafce98bdbee7db58d8d4290fa28dbac3f926c51011e93ea10db9a9d7d1"],
-  ["public/landing-pages/portfolio-detail.html", "fcf8207545043b41786f332fc1e27f1d22be0beb071cdb3ae3274111d8065338"],
+  ["public/landing-pages/wang-sketchbook.html", "ce78bd4b03b6739841aa005f6ed39d507600cb5d0940cf8b754679668057a86a"],
+  ["public/landing-pages/portfolio-detail.html", "0cb6e00e98249124e892db1bb07ffa5f65a1de9d63ab6f5f7af6875c667856d3"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
@@ -14,8 +14,8 @@ const expected = new Map([
   ["public/landing-pages/meng-to-sketchbook/instrument-serif.woff2", "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d"],
   ["public/landing-pages/meng-to-sketchbook/instrument-serif-italic.woff2", "6ee678c33f388dd7ba59700ebea635deb98821baafd817b09891f7927177f702"],
   ["public/landing-pages/meng-to-sketchbook/newsreader.woff2", "01817351be3edfc1714fe6d60ddea6a22a169a5ebd033b50c7f9495e5d9c386a"],
-  ["public/landing-pages/portfolio-book/01-home.svg", "84619f174184ddeeaecbf9ec50837aa9f76eee6b1b5d16158928fd1f1949881d"],
-  ["public/landing-pages/portfolio-book/02-resume.svg", "a5c49b9b27ceae693bf4ac70151577e171f4b87df46cc2a69b140553a3e9aca2"],
+  ["public/landing-pages/portfolio-book/01-home.svg", "646ea9ac5abfd2f649ce9e54a3530ddf85c2138f14cfcbe5aa6b1d2ae11c9cb6"],
+  ["public/landing-pages/portfolio-book/02-resume.svg", "3b3d193b73ddfa192e1bf2bec9722bb941fa729b313c64d2450c1632194bd9c4"],
   ["public/landing-pages/portfolio-book/03-tools.svg", "c5ec047607e45ee4f493e8b2aae6a7f490cec7aa7521b9bb3eb83b6db97ebb39"],
   ["public/landing-pages/portfolio-book/04-contact.svg", "0f1832beff0e439ec266029e264e5dc2102c404fbc1389fd6e1cdf327fd70a15"],
   ["public/landing-pages/portfolio-book/cat-player.png", "01757608cf54fb55ff2c064a84913b16d874b444966f9b7869c13f8e51f4cdd8"],
