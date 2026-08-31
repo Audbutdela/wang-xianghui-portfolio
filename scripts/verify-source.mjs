@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
-  ["public/landing-pages/wang-sketchbook.html", "17900fcf89649832403e60f435093638272ea28d927b169b4960a39dae69ebbf"],
-  ["public/landing-pages/portfolio-detail.html", "56ef06de3e5da942bd4fbac03db659daf943efeab5f5c1d843668cab760de86d"],
+  ["public/landing-pages/wang-sketchbook.html", "adf224f5e13d129c4a85d1f2945c80a4e01b8d80b61562e44b126616f49f3f67"],
+  ["public/landing-pages/portfolio-detail.html", "b8c40f93531967408861fda30591ee61461e1e29524f4f5444ddee3195cb0454"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
@@ -21,6 +21,7 @@ const expected = new Map([
   ["public/landing-pages/portfolio-book/cat-player.png", "01757608cf54fb55ff2c064a84913b16d874b444966f9b7869c13f8e51f4cdd8"],
   ["public/landing-pages/portfolio-book/cat-player-360.webp", "fcd6fa3c0634598aa369af2b671255a323f03d1c035b07aa76e125707040bcb2"],
   ["public/landing-pages/portfolio-book/vine-wreath.png", "d72c8a1f72d7950e062b66a8a3f750ffd5d843e6549864b276dfbd0000021b1d"],
+  ["public/landing-pages/portfolio-book/vine-wreath-360.png", "e464d0fc952f52da13f5695353aff9d4da8f63a7f2a29ec962e2ef928ed9d348"],
   ["public/landing-pages/portfolio-book/moss-hex-tile.png", "c5b8f3ec8ce5216fe6cda959e765a819185f2a7fc3dc71c329d8a764a809b608"],
   ["public/landing-pages/portfolio-book/moss-hex-tile-320.webp", "972f9665b6f6d6f4db643a8f7ed90b33fc1ae56814314e055ddfc1212e90a55b"],
   ["public/landing-pages/portfolio-book/vine-board-background.png", "87d170f6e1d9a60d936a5a6ed6775cb8caabdd9f1a5cc070593be47c1c5769d8"],
