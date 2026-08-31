@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1240" viewBox="0 0 1760 1240">
   <defs><filter id="s" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#20271d" flood-opacity=".25"/></filter><linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3f6ed"/><stop offset="1" stop-color="#dce5d6"/></linearGradient><linearGradient id="g"><stop stop-color="#c8d3c2" stop-opacity="0"/><stop offset=".5" stop-color="#68765f" stop-opacity=".22"/><stop offset="1" stop-color="#c8d3c2" stop-opacity="0"/></linearGradient></defs>
   <g filter="url(#s)"><path d="M105 270Q95 270 95 286V938Q95 966 122 971H880V270Z" fill="url(#p)"/><path d="M880 270H1655Q1665 270 1665 286V938Q1665 966 1638 971H880Z" fill="url(#p)"/></g>
-  <text x="150" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">个人简历 · 01</text>
-  <text x="150" y="405" fill="#293126" font-size="56" font-family="Instrument Serif, STSong, serif">从业务需求出发，</text><text x="150" y="470" fill="#293126" font-size="56" font-family="Instrument Serif, STSong, serif">完成招聘交付。</text>
+  <text x="150" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Songti SC, STSong, SimSun, serif">个人简历 · 01</text>
+  <text x="150" y="405" fill="#293126" font-size="56" font-family="Songti SC, STSong, SimSun, serif">从业务需求出发，</text><text x="150" y="470" fill="#293126" font-size="56" font-family="Songti SC, STSong, SimSun, serif">完成招聘交付。</text>
   <line x1="150" y1="515" x2="760" y2="515" stroke="#293126" stroke-opacity=".15"/>
-  <g font-family="Newsreader, STSong, serif">
-    <circle cx="165" cy="576" r="6" fill="#637054"/><text x="195" y="582" fill="#293126" font-size="29" font-weight="600">网易互娱 · 招聘经理</text><text x="195" y="616" fill="#667061" font-size="20">2026.02 — 至今</text><text x="195" y="654" fill="#596255" font-size="23">游戏交互、AI 产品／设计及技术岗位</text>
+  <g font-family="Songti SC, STSong, SimSun, serif">
+    <circle cx="165" cy="576" r="6" fill="#637054"/><text x="195" y="582" fill="#293126" font-size="29" font-weight="600">网易互娱 · 招聘经理</text><text x="195" y="616" fill="#667061" font-size="20">2026.02 — 至今</text><text x="195" y="654" fill="#596255" font-size="23">游戏交互、AI 产品、设计及技术岗位</text>
     <circle cx="165" cy="720" r="6" fill="#637054"/><text x="195" y="726" fill="#293126" font-size="29" font-weight="600">阿里优酷 · 招聘 HR</text><text x="195" y="760" fill="#667061" font-size="20">2024.12 — 2026.02</text><text x="195" y="798" fill="#596255" font-size="21">产运研、内容、销售及游戏岗位招聘 · 招聘与雇主品牌运营</text>
     <circle cx="165" cy="846" r="6" fill="#637054"/><text x="195" y="852" fill="#293126" font-size="29" font-weight="600">拼多多 TEMU · HR 管培</text><text x="195" y="884" fill="#667061" font-size="20">2024.07 — 2024.11</text><text x="195" y="920" fill="#596255" font-size="21">跨境电商采销、运营及小语种岗位招聘</text>
   </g>
-  <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Newsreader, STSong, serif">经历与能力 · 02</text>
-  <g font-family="Newsreader, STSong, serif">
+  <text x="955" y="330" fill="#637a55" font-size="20" letter-spacing="4" font-family="Songti SC, STSong, SimSun, serif">经历与能力 · 02</text>
+  <g font-family="Songti SC, STSong, SimSun, serif">
     <text x="955" y="390" fill="#293126" font-size="31" font-weight="600">网易雷火 · 美术招聘 HR 实习生</text><text x="955" y="424" fill="#667061" font-size="20">2023.10 — 2024.05</text><text x="955" y="458" fill="#596255" font-size="20">资深美术、技术与策划岗位招聘</text>
     <text x="955" y="520" fill="#293126" font-size="31" font-weight="600">北京快手 · HR 实习生</text><text x="955" y="554" fill="#667061" font-size="20">2023.03 — 2023.09</text><text x="955" y="588" fill="#596255" font-size="20">400+ 人团队产品、运营与研发岗位招聘</text>
     <line x1="955" y1="620" x2="1540" y2="620" stroke="#293126" stroke-opacity=".14"/>
