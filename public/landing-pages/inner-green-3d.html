@@ -1870,6 +1870,7 @@ window.__seek   = v => { clock = v; drawn = null; };
 
   }
 
+  if (globalThis.document.documentElement.classList.contains('scene-only')) return;
   const hosts = globalThis.document.querySelectorAll('[data-liquid-metal]');
   for (let i = 0; i < hosts.length; i++) mountLiquidMetal(hosts[i]);
 })();
@@ -3233,8 +3234,8 @@ window.__seek   = v => { clock = v; drawn = null; };
   function buildWire(L, out) {
     if (!L.grid) return;
     var S = L.S, R = L.R, g = L.grid, i, j, a, b;
-    var ringEvery = Math.max(2, Math.round(S / 52));
-    var longEvery = Math.max(2, Math.round(R / 9));
+    var ringEvery = Math.max(2, Math.round(S / (MOBILE_QUALITY ? 26 : 52)));
+    var longEvery = Math.max(2, Math.round(R / (MOBILE_QUALITY ? 5 : 9)));
     for (i = 0; i <= S; i += ringEvery) {
       for (j = 0; j < R; j++) {
         a = (i * (R + 1) + j) * 3; b = a + 3;

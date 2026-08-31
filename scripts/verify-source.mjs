@@ -2,9 +2,9 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
 const expected = new Map([
-  ["public/landing-pages/inner-green-3d.html", "6a033acd6f7b6a0748661dab6409f1d4779b3d617433dcabb3fedd75ba12813a"],
+  ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
   ["public/landing-pages/wang-sketchbook.html", "3a98017c46870196d2a2d207563dd43068d1040d25187fa1ad519b20abd40c5a"],
-  ["public/landing-pages/portfolio-detail.html", "2616096a7bf7d0a58ba8e4a5b124e7d9dc931e724cd2e4f13a61c48489c1feee"],
+  ["public/landing-pages/portfolio-detail.html", "5f67b33fd28dbd17d6f21da280e8a0585be9400eaf30fc7c71202e3d58f7ea34"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],
