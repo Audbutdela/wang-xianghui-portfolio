@@ -6,7 +6,11 @@
 <meta name="theme-color" content="#343a32">
 <title>王祥辉 — 互联网招聘作品集</title>
 <meta name="description" content="王祥辉的互联网招聘作品集：个人简历、招聘工具与联系方式。">
-<link rel="preload" href="inner-green-assets/three.min.js" as="script" fetchpriority="low">
+<link rel="preload" href="inner-green-assets/three.min.js" as="script" fetchpriority="high">
+<link rel="preload" href="portfolio-book/01-home.svg" as="image" fetchpriority="high">
+<link rel="preload" href="portfolio-book/02-resume.svg" as="image">
+<link rel="preload" href="portfolio-book/03-tools.svg" as="image">
+<link rel="preload" href="portfolio-book/04-contact.svg" as="image">
 <style>
 :root{
   --paper:#ece7dc;
@@ -81,7 +85,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:1;filter:saturate(.92) bright
 .top-links>a:hover::after,.top-links>a[aria-current]::after{width:100%}
 .top-menu{display:none;border:0;background:transparent;color:var(--ink);padding:8px 2px;font:600 14px/1 var(--font);letter-spacing:.05em;cursor:pointer}
 .top-menu span{display:inline-block;margin-left:5px;transition:transform .2s ease}.top-menu[aria-expanded="true"] span{transform:rotate(180deg)}
-.top.is-docked{position:fixed;top:0;left:0;z-index:500;width:100%;padding:0 24px;transform:none;background:linear-gradient(180deg,rgba(57,65,52,.94),rgba(43,51,40,.94));border-bottom:1px solid rgba(216,244,147,.16);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(9,13,8,.12);opacity:1;visibility:visible;transition:opacity .24s ease}
+.top.is-docked{position:fixed;top:0;left:0;z-index:500;width:100%;padding:0 24px;transform:none;background:linear-gradient(180deg,rgba(57,65,52,.94),rgba(43,51,40,.94));-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(9,13,8,.12);opacity:1;visibility:visible;transition:opacity .24s ease}
 .top.is-docked nav{justify-content:space-between;width:min(1120px,100%);min-height:58px;margin:0 auto;text-shadow:none}
 .top.is-docked .top-brand{display:block}
 .top.is-docked .top-links{gap:22px}
@@ -439,7 +443,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:1;filter:saturate(.92) bright
   text-underline-offset:4px;transition:text-decoration-color .2s}
 .bio-link:hover{text-decoration-color:var(--ink)}
 
-.plates{position:relative;width:100%;min-height:clamp(650px,86svh,820px);margin:0;scroll-margin-top:58px;overflow:hidden;isolation:isolate;background:transparent;border-top:1px solid rgba(216,244,147,.12)}
+.plates{position:relative;width:100%;min-height:clamp(650px,86svh,820px);margin:0;scroll-margin-top:58px;overflow:hidden;isolation:isolate;background:transparent}
 .manual-library{position:relative;width:min(1220px,96vw);min-height:inherit;margin:0 auto;padding:clamp(32px,5vw,68px)}
 .manual-library::before{content:"PORTFOLIO";position:absolute;left:50%;top:46%;z-index:-1;transform:translate(-50%,-50%);font:500 clamp(100px,18vw,250px)/.8 var(--display);letter-spacing:-.07em;color:rgba(244,246,238,.055);white-space:nowrap}
 .library-heading{position:relative;margin:0;padding-bottom:18px;font-family:var(--display);font-size:var(--type-section-title);font-weight:600;line-height:.96;letter-spacing:-.025em}
@@ -533,9 +537,7 @@ body[data-scene="bookshelf"] .forest-frame{opacity:1;filter:saturate(.92) bright
     var source=mobile
       ?'inner-green-3d.html?scene-only=1&blades=10000&quality=mobile&fps=24'
       :'inner-green-3d.html?scene-only=1&blades=52000&fps=45';
-    var loadForest=function(){if(!frame.src)frame.src=source};
-    if(mobile)setTimeout(loadForest,0);
-    else loadForest();
+    if(!frame.src)frame.src=source;
   })();
 </script>
 <div class="wash" aria-hidden="true"></div>
@@ -1232,8 +1234,8 @@ document.querySelectorAll('a[href*="page=contact"]').forEach(link=>{
   link.addEventListener('focus',queueContactAssets,{once:true,passive:true});
   link.addEventListener('pointerdown',queueContactAssets,{once:true,passive:true});
 });
-if('requestIdleCallback' in window)requestIdleCallback(queueContactAssets,{timeout:6000});
-else setTimeout(queueContactAssets,3000);
+if('requestIdleCallback' in window)requestIdleCallback(queueContactAssets,{timeout:1200});
+else setTimeout(queueContactAssets,500);
 manualLinks.forEach(card=>card.addEventListener('click',event=>{
   if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
   if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
