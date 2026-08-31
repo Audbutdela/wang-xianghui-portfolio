@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
-  ["public/landing-pages/wang-sketchbook.html", "16bddd8165ba5173de3d7ba57076c20ee02bd0f48a5195d52e13afcafac6c7e2"],
+  ["public/landing-pages/wang-sketchbook.html", "1e7b12dcbec8029e9bd84a32a7595a653da75b0af03db3c95c9c0bab89b551fc"],
   ["public/landing-pages/portfolio-detail.html", "56ef06de3e5da942bd4fbac03db659daf943efeab5f5c1d843668cab760de86d"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
