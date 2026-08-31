@@ -3634,7 +3634,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     nearGroup = assembleRoot(nearLimbs, {
       aspect: ARCH.aspect, haze: 0.15, fog: 0.0, alpha: 1.0, order: 2,
       blades: BLADES_NEAR, ferns: MOBILE_QUALITY ? 14 : (small ? 24 : 42), flowers: MOBILE_QUALITY ? 60 : (small ? 110 : 230),
-      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: !MOBILE_QUALITY,
+      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: true,
       mouse: uMouseNear, mouseR: 1.20
     });
     scene.add(nearGroup);
@@ -3651,7 +3651,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       hazeCol: [0.150, 0.164, 0.120], hazeLift: 0.92,
       blades: BLADES_FAR, ferns: MOBILE_QUALITY ? 4 : (small ? 8 : 14), flowers: MOBILE_QUALITY ? 18 : (small ? 36 : 78),
       fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],
-      mask: [0.4, 3.4, 0.0, 0.42], wire: !MOBILE_QUALITY,
+      mask: [0.4, 3.4, 0.0, 0.42], wire: true,
       mouse: uMouseFar, mouseR: 1.4
     });
     scene.add(farGroup);
@@ -3664,7 +3664,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     /* Hold the pulse for a page nobody is looking at: a background tab gets
        no rAF, so the scan would never advance and the hero would still be
        empty when it was finally opened. */
-    if (!MOBILE_QUALITY && !REDUCED && !document.hidden) { uScanOn.value = 1; uScanR.value = 0; scanning = true; }
+    if (!REDUCED && !document.hidden) { uScanOn.value = 1; uScanR.value = 0; scanning = true; }
 
     /* Paint once here rather than waiting on the loop. A tab that is opened
        in the background never gets a rAF, so the hero would sit empty until
