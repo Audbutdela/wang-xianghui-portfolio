@@ -13,7 +13,7 @@
     <text x="155" y="440" fill="#293126" font-size="76" font-family="Instrument Serif, STSong, serif">让人才与机会</text>
     <text x="155" y="528" fill="#293126" font-size="76" font-family="Instrument Serif, STSong, serif">在更好的地方相遇</text>
     <line x1="155" y1="586" x2="735" y2="586" stroke="#293126" stroke-opacity=".18"/>
-    <text x="155" y="646" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">专注游戏、AI、产品设计与技术人才招聘</text>
+    <text x="155" y="646" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">关注游戏、AI、产运与技术人才招聘</text>
     <text x="155" y="690" fill="#556052" font-size="28" font-family="Newsreader, STSong, serif">也用代码构建更高效的招聘系统。</text>
     <text x="155" y="826" fill="#637a55" font-size="22" letter-spacing="3" font-family="Newsreader, STSong, serif">翻页查看关于我、简历、招聘工具与联系方式 →</text>
   </g>
@@ -23,17 +23,17 @@
     <text x="1010" y="470" fill="#293126" font-size="54" font-family="Instrument Serif, STSong, serif">我的优势</text>
     <g font-family="Newsreader, STSong, serif">
       <rect x="1010" y="520" width="235" height="132" rx="24" fill="#edf1e9"/>
-      <text x="1040" y="566" fill="#33402f" font-size="26" font-weight="600">多场景招聘经验</text>
-      <text x="1040" y="610" fill="#64705f" font-size="16">互联网 · 电商 · 游戏 · AI</text>
+      <text x="1040" y="566" fill="#33402f" font-size="24" font-weight="600">高阶与难点招聘</text>
+      <text x="1040" y="610" fill="#64705f" font-size="16">人才寻访 · 画像校准</text>
       <rect x="1260" y="520" width="235" height="132" rx="24" fill="#edf1e9"/>
-      <text x="1290" y="566" fill="#33402f" font-size="26" font-weight="600">复杂岗位交付</text>
-      <text x="1290" y="610" fill="#64705f" font-size="16">高阶攻坚 · 批量招聘</text>
+      <text x="1290" y="566" fill="#33402f" font-size="24" font-weight="600">多场景结果交付</text>
+      <text x="1290" y="610" fill="#64705f" font-size="16">互联网 · 文娱 · 游戏 · AI</text>
       <rect x="1010" y="670" width="235" height="132" rx="24" fill="#edf1e9"/>
-      <text x="1040" y="716" fill="#33402f" font-size="26" font-weight="600">Mapping 与复盘</text>
-      <text x="1040" y="760" fill="#64705f" font-size="16">行业研究 · 漏斗分析</text>
+      <text x="1040" y="716" fill="#33402f" font-size="24" font-weight="600">招聘运营</text>
+      <text x="1040" y="760" fill="#64705f" font-size="16">项目运营 · 雇主品牌</text>
       <rect x="1260" y="670" width="235" height="132" rx="24" fill="#edf1e9"/>
-      <text x="1290" y="716" fill="#33402f" font-size="26" font-weight="600">AI 工具实践</text>
-      <text x="1290" y="760" fill="#64705f" font-size="16">把重复流程做成工具</text>
+      <text x="1290" y="716" fill="#33402f" font-size="24" font-weight="600">数据与工具实践</text>
+      <text x="1290" y="760" fill="#64705f" font-size="16">复盘分析 · AI 提效</text>
     </g>
     <text x="1010" y="850" fill="#64705f" font-size="20" letter-spacing="3">招聘 · 研究 · 工具实践</text>
   </g>

@@ -499,15 +499,17 @@ body[data-scene="bookshelf"] .forest-frame{opacity:.9;filter:saturate(.82) brigh
   .manual-library::before{top:42%;font-size:27vw;opacity:.7}
   .library-heading{font-size:var(--type-section-title);line-height:.96;padding-bottom:17px}
   .library-note{max-width:none;margin-top:14px;font-size:var(--type-section-copy);line-height:1.6}
-  .manual-gallery{position:relative;inset:auto;display:grid;grid-template-columns:1fr;gap:13px;margin-top:30px;perspective:none}
-  .manual-card{position:relative;left:auto;top:auto;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto auto;width:100%;min-height:142px;aspect-ratio:auto;padding:22px 50px 21px 28px;border-radius:10px 23px 23px 10px;transform:none;box-shadow:-8px 14px 28px rgba(8,12,7,.27),inset 7px 0 rgba(255,255,255,.055),inset -2px 0 rgba(0,0,0,.16)}
-  .manual-card::before{left:14px}
-  .manual-card:hover,.manual-card:focus-visible{transform:translateY(-3px);box-shadow:-8px 18px 34px rgba(8,12,7,.34)}
-  .manual-card__index{position:static;grid-column:1;grid-row:1/4;align-self:start;padding-top:2px;font-size:12px}
-  .manual-card__kind{position:static;display:block;grid-column:2;grid-row:1;font-size:10px;letter-spacing:.16em}
-  .manual-card__title{position:static;grid-column:2;grid-row:2;margin:8px 0 9px;font-size:31px;line-height:1;white-space:normal}
-  .manual-card__title::after{display:none}
-  .manual-card__summary{position:static;grid-column:2;grid-row:3;font-size:15px;line-height:1.48;letter-spacing:.015em}
+  .plates{min-height:auto;overflow:visible}
+  .manual-library{padding-bottom:64px}
+  .manual-gallery{position:relative;inset:auto;display:grid;grid-template-columns:1fr;justify-items:center;gap:24px;margin-top:32px;perspective:1000px}
+  .manual-card{position:relative;left:auto;top:auto;display:block;width:min(212px,58vw);min-height:0;aspect-ratio:.72;padding:0;border-radius:9px 20px 20px 9px;transform:rotate(var(--r)) rotateY(-4deg);box-shadow:-12px 22px 38px rgba(8,12,7,.32),inset 8px 0 rgba(255,255,255,.055),inset -3px 0 rgba(0,0,0,.18)}
+  .manual-card::before{left:13px}
+  .manual-card:hover,.manual-card:focus-visible{transform:translateY(-7px) rotate(0) rotateY(0);box-shadow:-12px 28px 44px rgba(8,12,7,.4)}
+  .manual-card__index{position:absolute;top:22px;left:32px;padding:0;font-size:11px}
+  .manual-card__kind{position:absolute;display:block;top:23px;right:20px;font-size:9px;letter-spacing:.14em}
+  .manual-card__title{position:absolute;left:28px;right:16px;bottom:82px;margin:0;font-size:28px;line-height:1.02;white-space:nowrap}
+  .manual-card__title::after{display:block;width:38px;margin-top:11px}
+  .manual-card__summary{position:absolute;left:30px;right:24px;bottom:24px;font-size:13px;line-height:1.45;letter-spacing:.015em}
   .manual-card__summary::after{content:" →";color:var(--accent);font-weight:600}
   .manual-gallery[data-leaving="true"] .manual-card:not(.is-launching){transform:none}
   .manual-card.is-launching{transform:translateX(10px);opacity:0}
@@ -1060,13 +1062,17 @@ document.getElementById('coverDown').onclick=()=>{
 };
 let coverScrollLocked=false;
 addEventListener('wheel',event=>{
-  if(event.deltaY<=0||scrollY>innerHeight*.35||coverScrollLocked)return;
+  if(event.deltaY<=0||coverScrollLocked)return;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sketchbook=document.getElementById('sketchbook');
+  const bookRect=sketchbook.getBoundingClientRect();
+  let target=null,block='start';
+  if(scrollY<=innerHeight*.35){target=sketchbook;block='center'}
+  else if(!MOBILE_MODE&&bookRect.top<innerHeight*.52&&bookRect.bottom>innerHeight*.48){target=document.getElementById('plates')}
+  if(!target)return;
   event.preventDefault();
   coverScrollLocked=true;
-  document.getElementById('sketchbook').scrollIntoView({
-    behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',
-    block:'center'
-  });
+  target.scrollIntoView({behavior:reduced?'auto':'smooth',block});
   setTimeout(()=>{coverScrollLocked=false},850);
 },{passive:false});
 document.getElementById('heroDown').onclick=()=>{
