@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
-  ["public/landing-pages/wang-sketchbook.html", "adf224f5e13d129c4a85d1f2945c80a4e01b8d80b61562e44b126616f49f3f67"],
-  ["public/landing-pages/portfolio-detail.html", "b8c40f93531967408861fda30591ee61461e1e29524f4f5444ddee3195cb0454"],
+  ["public/landing-pages/wang-sketchbook.html", "7133790f27253518fd0956c171975116f3e4ec08efcfc8c47f8e45b9c108f39d"],
+  ["public/landing-pages/portfolio-detail.html", "a38661f4bbe3a11710beca1e0b192f0a3798728691c976aa4f405e480660acb1"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
   ["public/landing-pages/inner-green-assets/card-ethos.jpg", "337627390f499b3ae272cec9e2f83c817694a82f42e1aa10a7b26a2c7d679dff"],

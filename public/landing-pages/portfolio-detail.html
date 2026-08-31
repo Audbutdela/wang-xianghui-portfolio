@@ -7,7 +7,7 @@
 <title>王祥辉 — 作品集</title>
 <link rel="preload" href="meng-to-sketchbook/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="meng-to-sketchbook/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-<script>if(new URLSearchParams(location.search).get('page')==='contact'){['portfolio-book/moss-hex-tile-320.webp','portfolio-book/vine-wreath-360.png','portfolio-book/cat-player-360.webp','portfolio-book/vine-board-background-900.webp'].forEach(function(href){var link=document.createElement('link');link.rel='preload';link.as='image';link.href=href;document.head.appendChild(link)})}</script>
+<script>if(new URLSearchParams(location.search).get('page')==='contact'){['portfolio-book/moss-hex-tile-320.webp','portfolio-book/vine-wreath-360.png','portfolio-book/cat-player-360.webp','portfolio-book/vine-board-background-900.webp'].forEach(function(href){var link=document.createElement('link');link.rel='preload';link.as='image';link.fetchPriority='high';link.href=href;document.head.appendChild(link)})}</script>
 <style>
 @font-face{font-family:'Instrument Serif';src:url(meng-to-sketchbook/instrument-serif.woff2) format('woff2');font-display:block}
 @font-face{font-family:'Newsreader';src:url(meng-to-sketchbook/newsreader.woff2) format('woff2');font-display:block}
@@ -52,7 +52,6 @@ body[data-page="ai"] .hero h1{max-width:none;font-size:clamp(64px,8.8vw,124px);l
 .case-heading span,.section-intro,.strength span{ text-align:justify;text-align-last:left;text-justify:inter-character;text-wrap:wrap }
 .case-body p,.job p,.copy{ text-justify:inter-character }
 .case-tag{display:inline-flex;align-items:center;justify-content:center;min-height:32px;line-height:1.15;text-align:center;white-space:nowrap}
-.vine-cell::before,.vine-cell.is-blocked::before{clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background-color:#8fa64b}
 body[data-page="ai"] h2,body[data-page="ai"] .case-heading strong,body[data-page="ai"] .case-body h3{white-space:nowrap}
 </style>
 <style>
