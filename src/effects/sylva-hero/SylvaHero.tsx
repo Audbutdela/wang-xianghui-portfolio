@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
-const SOURCE_URL = "./landing-pages/wang-sketchbook.html";
+const SOURCE_URL = "./landing-pages/wang-sketchbook.html?entry=lanyard";
 const SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-same-origin allow-scripts";
 const STYLE_ID = "threeui-page-typography";
 
@@ -8,11 +8,11 @@ const HEADING_WEIGHTS = ["200", "300", "400", "500", "600"] as const;
 const BODY_WEIGHTS = ["200", "300", "400", "500"] as const;
 const HEADING_FAMILIES = {
   lexend: "'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  "instrument-serif": "'Instrument Serif', 'Songti SC', 'STSong', Georgia, serif",
+  "instrument-serif": "'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Instrument Serif', Georgia, serif",
 } as const;
 const BODY_FAMILIES = {
   lexend: "'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  newsreader: "'Newsreader', 'Songti SC', 'STSong', Georgia, serif",
+  newsreader: "'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Newsreader', Georgia, serif",
 } as const;
 
 export type SylvaHeroProps = {

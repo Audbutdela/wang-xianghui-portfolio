@@ -2,9 +2,9 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
 const expected = new Map([
-  ["public/landing-pages/inner-green-3d.html", "1b089f30a7521d9db04b096c20a3f28744c3fd5ffd171d322106ffbccfdddb16"],
-  ["public/landing-pages/wang-sketchbook.html", "bc4d27fe0ea6dc108ee268776abae64b27e23f0e8a95b1556388dba08428c22f"],
-  ["public/landing-pages/portfolio-detail.html", "2fdbed7f37d5701109e7da097fc80c648f29312dcaac71cfe1b14b1127c4cf9f"],
+  ["public/landing-pages/inner-green-3d.html", "188c20b3c81a550343ab84e13c47f146c0941afecd23ebc0036d09c70ac8fde2"],
+  ["public/landing-pages/wang-sketchbook.html", "27bbf93358ee9cad58f01171a9b38d79c40d11725864d878c62b6a58d19deb34"],
+  ["public/landing-pages/portfolio-detail.html", "ef9cb6e708ad85675e4f1bf00f98553f6425545c8763c11c287c4b23584af788"],
   ["public/landing-pages/assets/wang-xianghui-resume.pdf", "a925ed1f7dc19b06e130e38316942c5a6ebb6bff2f7f7d5bfe79658c9a56b018"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
