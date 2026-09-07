@@ -1,6 +1,5 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 
-import Lanyard from "./Lanyard";
 import LetterGlitch from "./LetterGlitch";
 import bandImage from "./band-paw.svg";
 import backImage from "./paw-back.png";
@@ -8,6 +7,7 @@ import portraitImage from "./portrait-cutout.png";
 import "./portfolio-intro.css";
 
 const detailHref = (page) => `./landing-pages/portfolio-detail.html?page=${page}`;
+const Lanyard = lazy(() => import("./Lanyard"));
 
 export function PortfolioIntro() {
   return (
@@ -17,7 +17,6 @@ export function PortfolioIntro() {
       <header className="portfolio-intro__header">
         <a className="portfolio-intro__brand" href="./" aria-label="返回作品集封皮首页">王祥辉｜作品集</a>
         <nav className="portfolio-intro__nav" aria-label="作品集导航">
-          <a href="./" aria-current="page">首页</a>
           <a href={detailHref("about")}>关于我</a>
           <a href={detailHref("resume")}>个人简历</a>
           <a href={detailHref("ai")}>AI 应用</a>
@@ -29,7 +28,9 @@ export function PortfolioIntro() {
         <p><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
       </div>
       <div className="portfolio-intro__lanyard" aria-label="可交互个人工卡">
-        <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} />
+        <Suspense fallback={null}>
+          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} />
+        </Suspense>
       </div>
     </section>
   );

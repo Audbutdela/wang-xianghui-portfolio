@@ -264,7 +264,9 @@ function Band({
       }
     }
     if (dragged) {
-      vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
+      const pointerX = isMobile ? THREE.MathUtils.clamp(state.pointer.x, -0.86, 0.86) : state.pointer.x;
+      const pointerY = isMobile ? THREE.MathUtils.clamp(state.pointer.y, -0.84, 0.42) : state.pointer.y;
+      vec.set(pointerX, pointerY, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
       [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());

@@ -76,7 +76,7 @@ const LetterGlitch = ({
   const resizeCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas || !canvas.parentElement) return;
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth <= 760 ? 1.5 : 2);
     const rect = canvas.parentElement.getBoundingClientRect();
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
@@ -118,17 +118,19 @@ const LetterGlitch = ({
         needsRedraw = true;
       }
     });
-    if (needsRedraw) drawLetters();
+    return needsRedraw;
   };
 
   const animate = () => {
     const now = Date.now();
+    let needsRedraw = false;
     if (now - lastGlitchTime.current >= glitchSpeed) {
       updateLetters();
-      drawLetters();
+      needsRedraw = true;
       lastGlitchTime.current = now;
     }
-    if (smooth) handleSmoothTransitions();
+    if (smooth && handleSmoothTransitions()) needsRedraw = true;
+    if (needsRedraw && !document.hidden) drawLetters();
     animationRef.current = requestAnimationFrame(animate);
   };
 
