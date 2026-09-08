@@ -55,8 +55,8 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        dpr={[1, isMobile ? 1 : 2]}
+        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={1.8} />
@@ -76,7 +76,7 @@ export default function Lanyard({
             onReady={onReady}
           />
         </Physics>
-        <Environment blur={0.75}>
+        {isMobile ? <directionalLight intensity={1.1} position={[-3, 4, 6]} /> : <Environment blur={0.75}>
           <Lightformer
             intensity={0.65}
             color="white"
@@ -105,7 +105,7 @@ export default function Lanyard({
             rotation={[0, Math.PI / 2, Math.PI / 3]}
             scale={[100, 10, 1]}
           />
-        </Environment>
+        </Environment>}
       </Canvas>
     </div>
   );
@@ -313,16 +313,16 @@ function Band({
       [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
       const nextPosition = { x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z };
       if (isMobile) {
-        nextPosition.x = THREE.MathUtils.clamp(nextPosition.x, -1.35, 1.35);
-        nextPosition.y = THREE.MathUtils.clamp(nextPosition.y, -0.35, 2.25);
-        nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.25, 1.25);
+        nextPosition.x = THREE.MathUtils.clamp(nextPosition.x, -1.85, 1.85);
+        nextPosition.y = THREE.MathUtils.clamp(nextPosition.y, -1.05, 2.7);
+        nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.45, 1.45);
       }
       card.current?.setNextKinematicTranslation(nextPosition);
     } else if (isMobile && card.current && !flipping) {
       const currentPosition = card.current.translation();
       const boundedPosition = {
-        x: THREE.MathUtils.clamp(currentPosition.x, -1.55, 1.55),
-        y: THREE.MathUtils.clamp(currentPosition.y, -0.55, 2.45),
+        x: THREE.MathUtils.clamp(currentPosition.x, -1.9, 1.9),
+        y: THREE.MathUtils.clamp(currentPosition.y, -1.1, 2.75),
         z: THREE.MathUtils.clamp(currentPosition.z, -1.5, 1.5)
       };
       if (
@@ -386,6 +386,10 @@ function Band({
               e.target.releasePointerCapture(e.pointerId);
               const start = pointerStart.current;
               drag(false);
+              if (isMobile && card.current) {
+                card.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+                card.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+              }
               if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 8 && card.current) {
                 const from = new THREE.Quaternion().copy(card.current.rotation());
                 const turn = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
