@@ -2,15 +2,20 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const GLYPHS = Array.from("A7K2M9R4T8X0N5/#@_");
 
-export default function EncryptedText({ text, delay = 0, duration = 900, onComplete, className = "" }) {
+export default function EncryptedText({ text, delay = 0, duration = 900, holdUntil = true, onComplete, className = "" }) {
   const characters = useMemo(() => Array.from(text), [text]);
   const [revealed, setRevealed] = useState(0);
   const [noise, setNoise] = useState("");
   const completeRef = useRef(onComplete);
+  const holdRef = useRef(holdUntil);
 
   useEffect(() => {
     completeRef.current = onComplete;
   }, [onComplete]);
+
+  useEffect(() => {
+    holdRef.current = holdUntil;
+  }, [holdUntil]);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -23,14 +28,17 @@ export default function EncryptedText({ text, delay = 0, duration = 900, onCompl
 
     setRevealed(0);
     const startedAt = performance.now() + delay;
+    let tick = 0;
     const update = () => {
-      const progress = Math.max(0, Math.min(1, (performance.now() - startedAt) / duration));
+      tick += 1;
+      const rawProgress = Math.max(0, Math.min(1, (performance.now() - startedAt) / duration));
+      const progress = holdRef.current ? rawProgress : Math.min(rawProgress, 0.88);
       const nextRevealed = Math.floor(characters.length * progress);
       setRevealed(nextRevealed);
       setNoise(
         characters
           .slice(nextRevealed, nextRevealed + 3)
-          .map((character, index) => (/\s/.test(character) ? character : GLYPHS[(index + nextRevealed) % GLYPHS.length]))
+          .map((character, index) => (/\s/.test(character) ? character : GLYPHS[(index + nextRevealed + tick) % GLYPHS.length]))
           .join("")
       );
       if (progress === 1) {

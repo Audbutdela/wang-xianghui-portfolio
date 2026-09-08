@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useCallback, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import EncryptedText from "./EncryptedText";
 import LetterGlitch from "./LetterGlitch";
@@ -14,8 +14,18 @@ const Lanyard = lazy(() => import("./Lanyard"));
 export function PortfolioIntro() {
   const [cardReady, setCardReady] = useState(false);
   const [copyReady, setCopyReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 760);
   const markCardReady = useCallback(() => setCardReady(true), []);
   const revealCard = cardReady && copyReady;
+  const timing = isMobile
+    ? { titleOne: 760, titleTwo: 920, lineOne: 1180, lineTwo: 2050 }
+    : { titleOne: 560, titleTwo: 650, lineOne: 780, lineTwo: 1200 };
+
+  useEffect(() => {
+    const updateViewport = () => setIsMobile(window.innerWidth <= 760);
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
 
   return (
     <section className="portfolio-intro" id="home" aria-labelledby="portfolio-intro-title">
@@ -35,8 +45,8 @@ export function PortfolioIntro() {
         </nav>
       </header>
       <div className="portfolio-intro__copy">
-        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={100} duration={560} /><EncryptedText text="王祥辉" delay={360} duration={650} /></h1>
-        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={700} duration={780} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={980} duration={1200} onComplete={() => setCopyReady(true)} /></p>
+        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={isMobile ? 160 : 100} duration={timing.titleOne} /><EncryptedText text="王祥辉" delay={isMobile ? 520 : 360} duration={timing.titleTwo} /></h1>
+        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 1050 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 1500 : 980} duration={timing.lineTwo} holdUntil={!isMobile || cardReady} onComplete={() => setCopyReady(true)} /></p>
       </div>
       <div className={`portfolio-intro__lanyard${revealCard ? " is-ready" : ""}`} aria-label="可交互个人工卡" aria-busy={!revealCard}>
         <div className={`portfolio-intro__card-loader${revealCard ? " is-ready" : ""}`} aria-hidden="true">
