@@ -231,9 +231,9 @@ function Band({
   }, [frontImage, frontTitle, frontSubtitle, backImage, backColor, backFit, imageFit, frontTex, backTex, materials.base.map]);
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => onReady?.());
-    return () => cancelAnimationFrame(frame);
-  }, [onReady]);
+    const timer = window.setTimeout(() => onReady?.(), isMobile ? 800 : 0);
+    return () => window.clearTimeout(timer);
+  }, [isMobile, onReady]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])

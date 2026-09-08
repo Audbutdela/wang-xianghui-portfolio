@@ -35,7 +35,7 @@ export function PortfolioIntro() {
         <h1 id="portfolio-intro-title"><span>Hi，我是</span><span>王祥辉</span></h1>
         <p><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
       </div>
-      <div className="portfolio-intro__lanyard" aria-label="可交互个人工卡">
+      <div className={`portfolio-intro__lanyard${cardReady ? " is-ready" : ""}`} aria-label="可交互个人工卡">
         <div className={`portfolio-intro__card-placeholder${cardReady ? " is-ready" : ""}`} aria-hidden="true">
           <strong>王祥辉</strong>
           <span>互联网 HR</span>
