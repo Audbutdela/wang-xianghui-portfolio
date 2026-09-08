@@ -9,7 +9,8 @@ import portraitImage from "./portrait-cutout-720.png";
 import "./portfolio-intro.css";
 
 const detailHref = (page) => `./landing-pages/portfolio-detail.html?page=${page}`;
-const Lanyard = lazy(() => import("./Lanyard"));
+const lanyardModule = import("./Lanyard");
+const Lanyard = lazy(() => lanyardModule);
 
 export function PortfolioIntro() {
   const [cardReady, setCardReady] = useState(false);
