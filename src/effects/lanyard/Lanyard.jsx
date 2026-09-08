@@ -40,6 +40,7 @@ export default function Lanyard({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
+  active = false,
   onReady = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
@@ -71,6 +72,7 @@ export default function Lanyard({
             imageFit={imageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
+            active={active}
             onReady={onReady}
           />
         </Physics>
@@ -121,6 +123,7 @@ function Band({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
+  active = false,
   onReady = null
 }) {
   const band = useRef(),
@@ -234,6 +237,16 @@ function Band({
     const timer = window.setTimeout(() => onReady?.(), isMobile ? 800 : 0);
     return () => window.clearTimeout(timer);
   }, [isMobile, onReady]);
+  useEffect(() => {
+    if (!active || isMobile) return undefined;
+    const timer = window.setTimeout(() => {
+      if (!card.current) return;
+      card.current.wakeUp();
+      card.current.applyImpulse({ x: -0.22, y: 0.08, z: 0.12 }, true);
+      card.current.applyTorqueImpulse({ x: 0.02, y: 0.08, z: -0.04 }, true);
+    }, 60);
+    return () => window.clearTimeout(timer);
+  }, [active, isMobile]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])

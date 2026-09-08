@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useCallback, useState } from "react";
 
+import EncryptedText from "./EncryptedText";
 import LetterGlitch from "./LetterGlitch";
 import bandImage from "./band-paw.svg";
 import cardModel from "./card-optimized.glb";
@@ -12,7 +13,9 @@ const Lanyard = lazy(() => import("./Lanyard"));
 
 export function PortfolioIntro() {
   const [cardReady, setCardReady] = useState(false);
+  const [copyReady, setCopyReady] = useState(false);
   const markCardReady = useCallback(() => setCardReady(true), []);
+  const revealCard = cardReady && copyReady;
 
   return (
     <section className="portfolio-intro" id="home" aria-labelledby="portfolio-intro-title">
@@ -32,17 +35,16 @@ export function PortfolioIntro() {
         </nav>
       </header>
       <div className="portfolio-intro__copy">
-        <h1 id="portfolio-intro-title"><span>Hi，我是</span><span>王祥辉</span></h1>
-        <p><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
+        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={100} duration={560} /><EncryptedText text="王祥辉" delay={360} duration={650} /></h1>
+        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={700} duration={780} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={980} duration={1200} onComplete={() => setCopyReady(true)} /></p>
       </div>
-      <div className={`portfolio-intro__lanyard${cardReady ? " is-ready" : ""}`} aria-label="可交互个人工卡">
-        <div className={`portfolio-intro__card-placeholder${cardReady ? " is-ready" : ""}`} aria-hidden="true">
-          <strong>王祥辉</strong>
-          <span>互联网 HR</span>
-          <img src={portraitImage} alt="" />
+      <div className={`portfolio-intro__lanyard${revealCard ? " is-ready" : ""}`} aria-label="可交互个人工卡" aria-busy={!revealCard}>
+        <div className={`portfolio-intro__card-loader${revealCard ? " is-ready" : ""}`} aria-hidden="true">
+          <span />
+          <small>工卡加载中</small>
         </div>
         <Suspense fallback={null}>
-          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} onReady={markCardReady} />
+          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} active={copyReady} onReady={markCardReady} />
         </Suspense>
       </div>
     </section>
