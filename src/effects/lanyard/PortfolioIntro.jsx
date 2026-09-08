@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useCallback, useState } from "react";
 
 import LetterGlitch from "./LetterGlitch";
 import bandImage from "./band-paw.svg";
-import cardModel from "./card.glb";
+import cardModel from "./card-optimized.glb";
 import backImage from "./paw-back-720.png";
 import portraitImage from "./portrait-cutout-720.png";
 import "./portfolio-intro.css";
