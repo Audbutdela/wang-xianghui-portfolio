@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-const GLYPHS = ["·", "○", "◇", "／", "△", "□"];
+const GLYPHS = Array.from("A7K2M9R4T8X0N5/#@_");
 
 export default function EncryptedText({ text, delay = 0, duration = 900, onComplete, className = "" }) {
   const characters = useMemo(() => Array.from(text), [text]);
@@ -37,7 +37,7 @@ export default function EncryptedText({ text, delay = 0, duration = 900, onCompl
         window.clearInterval(timer);
         setRevealed(characters.length);
         setNoise("");
-        completeRef.current?.();
+        window.requestAnimationFrame(() => completeRef.current?.());
       }
     };
     const timer = window.setInterval(update, 64);

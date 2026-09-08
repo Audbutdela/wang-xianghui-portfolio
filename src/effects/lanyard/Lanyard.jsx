@@ -136,7 +136,7 @@ function Band({
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
-  const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
+  const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: isMobile ? 7 : 4, linearDamping: isMobile ? 7 : 4 };
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyardImage || lanyard);
   // useTexture must be called unconditionally; use a blank pixel when an image
@@ -234,7 +234,10 @@ function Band({
   }, [frontImage, frontTitle, frontSubtitle, backImage, backColor, backFit, imageFit, frontTex, backTex, materials.base.map]);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => onReady?.(), isMobile ? 800 : 0);
+    const timer = window.setTimeout(() => {
+      if (isMobile) [card, j1, j2, j3].forEach(ref => ref.current?.sleep());
+      onReady?.();
+    }, isMobile ? 1500 : 0);
     return () => window.clearTimeout(timer);
   }, [isMobile, onReady]);
   useEffect(() => {
