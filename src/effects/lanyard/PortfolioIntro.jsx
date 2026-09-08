@@ -1,17 +1,25 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useCallback, useState } from "react";
 
 import LetterGlitch from "./LetterGlitch";
 import bandImage from "./band-paw.svg";
-import backImage from "./paw-back.png";
-import portraitImage from "./portrait-cutout.png";
+import cardModel from "./card.glb";
+import backImage from "./paw-back-720.png";
+import portraitImage from "./portrait-cutout-720.png";
 import "./portfolio-intro.css";
 
 const detailHref = (page) => `./landing-pages/portfolio-detail.html?page=${page}`;
 const Lanyard = lazy(() => import("./Lanyard"));
 
 export function PortfolioIntro() {
+  const [cardReady, setCardReady] = useState(false);
+  const markCardReady = useCallback(() => setCardReady(true), []);
+
   return (
     <section className="portfolio-intro" id="home" aria-labelledby="portfolio-intro-title">
+      <link rel="preload" as="fetch" href={cardModel} crossOrigin="anonymous" />
+      <link rel="preload" as="image" href={portraitImage} />
+      <link rel="preload" as="image" href={backImage} />
+      <link rel="preload" as="image" href={bandImage} />
       <LetterGlitch className="portfolio-intro__glitch" glitchColors={["#1f764e", "#1d5038", "#00aaff"]} glitchSpeed={5} centerVignette outerVignette smooth />
       <div className="portfolio-intro__wash" aria-hidden="true" />
       <header className="portfolio-intro__header">
@@ -28,8 +36,13 @@ export function PortfolioIntro() {
         <p><span>一名关注 AI 落地的互联网招聘 HR。</span><span>对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。</span></p>
       </div>
       <div className="portfolio-intro__lanyard" aria-label="可交互个人工卡">
+        <div className={`portfolio-intro__card-placeholder${cardReady ? " is-ready" : ""}`} aria-hidden="true">
+          <strong>王祥辉</strong>
+          <span>互联网 HR</span>
+          <img src={portraitImage} alt="" />
+        </div>
         <Suspense fallback={null}>
-          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} />
+          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} onReady={markCardReady} />
         </Suspense>
       </div>
     </section>

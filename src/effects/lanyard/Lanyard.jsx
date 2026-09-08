@@ -39,7 +39,8 @@ export default function Lanyard({
   backFit = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  onReady = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -70,6 +71,7 @@ export default function Lanyard({
             imageFit={imageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
+            onReady={onReady}
           />
         </Physics>
         <Environment blur={0.75}>
@@ -118,7 +120,8 @@ function Band({
   backFit = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  onReady = null
 }) {
   const band = useRef(),
     fixed = useRef(),
@@ -226,6 +229,11 @@ function Band({
     composite.needsUpdate = true;
     return composite;
   }, [frontImage, frontTitle, frontSubtitle, backImage, backColor, backFit, imageFit, frontTex, backTex, materials.base.map]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => onReady?.());
+    return () => cancelAnimationFrame(frame);
+  }, [onReady]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -251,6 +259,22 @@ function Band({
     }
   }, [hovered, dragged]);
 
+  useEffect(() => {
+    if (!dragged) return undefined;
+    const releaseOutsideCanvas = () => {
+      drag(false);
+      hover(false);
+      pointerStart.current = null;
+      document.body.style.cursor = 'auto';
+    };
+    window.addEventListener('pointerup', releaseOutsideCanvas);
+    window.addEventListener('pointercancel', releaseOutsideCanvas);
+    return () => {
+      window.removeEventListener('pointerup', releaseOutsideCanvas);
+      window.removeEventListener('pointercancel', releaseOutsideCanvas);
+    };
+  }, [dragged]);
+
   useFrame((state, delta) => {
     if (flipAnimation.current && card.current) {
       const elapsed = performance.now() - flipAnimation.current.startedAt;
@@ -270,7 +294,33 @@ function Band({
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
       [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
-      card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z });
+      const nextPosition = { x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z };
+      if (isMobile) {
+        nextPosition.x = THREE.MathUtils.clamp(nextPosition.x, -1.35, 1.35);
+        nextPosition.y = THREE.MathUtils.clamp(nextPosition.y, -0.35, 2.25);
+        nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.25, 1.25);
+      }
+      card.current?.setNextKinematicTranslation(nextPosition);
+    } else if (isMobile && card.current && !flipping) {
+      const currentPosition = card.current.translation();
+      const boundedPosition = {
+        x: THREE.MathUtils.clamp(currentPosition.x, -1.55, 1.55),
+        y: THREE.MathUtils.clamp(currentPosition.y, -0.55, 2.45),
+        z: THREE.MathUtils.clamp(currentPosition.z, -1.5, 1.5)
+      };
+      if (
+        boundedPosition.x !== currentPosition.x ||
+        boundedPosition.y !== currentPosition.y ||
+        boundedPosition.z !== currentPosition.z
+      ) {
+        card.current.setTranslation(boundedPosition, true);
+        const velocity = card.current.linvel();
+        card.current.setLinvel({
+          x: boundedPosition.x !== currentPosition.x ? 0 : velocity.x,
+          y: boundedPosition.y !== currentPosition.y ? 0 : velocity.y,
+          z: boundedPosition.z !== currentPosition.z ? 0 : velocity.z
+        }, true);
+      }
     }
     if (fixed.current) {
       [j1, j2].forEach(ref => {

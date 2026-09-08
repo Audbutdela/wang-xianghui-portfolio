@@ -64,8 +64,8 @@ body[data-page="contact"] .section{content-visibility:visible;contain-intrinsic-
   body{transform:none;transition:opacity .3s ease;background:radial-gradient(circle at 76% 7%,rgba(31,118,78,.22),transparent 31%),linear-gradient(155deg,#0e1510,#1c2b20 58%,#16251a);background-attachment:fixed}
   .topbar{display:grid;grid-template-columns:1fr;gap:6px;min-height:86px;padding:9px 16px 7px;align-content:center}
   .brand{font-size:19px;line-height:1.05;text-align:left}
-  .site-links{display:flex;width:100%;max-width:none;gap:20px;padding:0 0 2px;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none}
-  .site-links a,.site-links a:first-child{display:block;flex:0 0 auto;min-height:30px;font-size:14px;line-height:30px;scroll-snap-align:start}
+  .site-links{display:flex;width:100%;max-width:none;justify-content:space-between;gap:0;padding:0 0 2px;overflow:visible;scrollbar-width:none}
+  .site-links a,.site-links a:first-child{display:block;flex:0 0 auto;min-height:30px;font-size:14px;line-height:30px}
   .site-links a::after{bottom:0}
   .hero{width:calc(100vw - 36px);min-height:auto;padding:128px 0 44px}
   .eyebrow{font-size:10px;letter-spacing:.18em}
@@ -114,7 +114,7 @@ body[data-page="contact"] .section{content-visibility:visible;contain-intrinsic-
   .game-complete{padding:22px}.game-actions{display:grid;width:100%;gap:9px}.game-contact-button{width:100%}
 }
 @media (max-width:370px){
-  .topbar{padding-inline:13px}.site-links{gap:18px}.hero{width:calc(100vw - 30px)}.paper{width:calc(100vw - 10px);padding-inline:17px}
+  .topbar{padding-inline:13px}.hero{width:calc(100vw - 30px)}.paper{width:calc(100vw - 10px);padding-inline:17px}
   .case-card summary{grid-template-columns:25px minmax(0,1fr) 30px;padding-inline:13px}.case-body{padding-inline:13px}
 }
 .wechat-card{align-content:center}
