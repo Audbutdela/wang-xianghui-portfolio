@@ -259,10 +259,11 @@ function Band({
   const [hovered, hover] = useState(false);
   const pointerStart = useRef(null);
   const flipAnimation = useRef(null);
+  const ropeLength = isMobile ? 0.68 : 0.56;
 
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 0.56]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 0.56]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 0.56]);
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropeLength]);
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], ropeLength]);
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropeLength]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
     [0, 1.5, 0]

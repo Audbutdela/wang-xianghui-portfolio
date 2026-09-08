@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 const expected = new Map([
   ["public/landing-pages/inner-green-3d.html", "188c20b3c81a550343ab84e13c47f146c0941afecd23ebc0036d09c70ac8fde2"],
   ["public/landing-pages/wang-sketchbook.html", "27bbf93358ee9cad58f01171a9b38d79c40d11725864d878c62b6a58d19deb34"],
-  ["public/landing-pages/portfolio-detail.html", "dcf02725ac6ca433cbd25bfdc3cfac7c12fd64864026d374096cdb9c34cfb709"],
+  ["public/landing-pages/portfolio-detail.html", "cca9a06c9e39b601c22e6f876b5dd55bfbefd57d8d28d98521ba91891923f0a5"],
   ["public/landing-pages/assets/wang-xianghui-resume.pdf", "a925ed1f7dc19b06e130e38316942c5a6ebb6bff2f7f7d5bfe79658c9a56b018"],
   ["public/landing-pages/inner-green-assets/three.min.js", "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"],
   ["public/landing-pages/inner-green-assets/card-ecostove.jpg", "70ce084084902bc502f00c366405b661ecdff90dee95d363b36a6e146829e433"],
