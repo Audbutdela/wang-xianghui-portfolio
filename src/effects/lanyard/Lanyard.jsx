@@ -55,8 +55,8 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1 : 2]}
-        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
+        dpr={[1, 2]}
+        gl={{ alpha: transparent, antialias: true, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={1.8} />
@@ -76,7 +76,7 @@ export default function Lanyard({
             onReady={onReady}
           />
         </Physics>
-        {isMobile ? <directionalLight intensity={1.1} position={[-3, 4, 6]} /> : <Environment blur={0.75}>
+        <Environment>
           <Lightformer
             intensity={0.65}
             color="white"
@@ -105,7 +105,7 @@ export default function Lanyard({
             rotation={[0, Math.PI / 2, Math.PI / 3]}
             scale={[100, 10, 1]}
           />
-        </Environment>}
+        </Environment>
       </Canvas>
     </div>
   );

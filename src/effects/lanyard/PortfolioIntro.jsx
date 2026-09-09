@@ -19,7 +19,7 @@ export function PortfolioIntro() {
   const markCardReady = useCallback(() => setCardReady(true), []);
   const revealCard = cardReady && copyReady;
   const timing = isMobile
-    ? { titleOne: 760, titleTwo: 920, lineOne: 1180, lineTwo: 2050 }
+    ? { titleOne: 980, titleTwo: 1180, lineOne: 1580, lineTwo: 2800 }
     : { titleOne: 560, titleTwo: 650, lineOne: 780, lineTwo: 1200 };
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export function PortfolioIntro() {
         </nav>
       </header>
       <div className="portfolio-intro__copy">
-        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={isMobile ? 160 : 100} duration={timing.titleOne} /><EncryptedText text="王祥辉" delay={isMobile ? 520 : 360} duration={timing.titleTwo} /></h1>
-        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 1050 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 1500 : 980} duration={timing.lineTwo} holdUntil={!isMobile || cardReady} onComplete={() => setCopyReady(true)} /></p>
+        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={isMobile ? 180 : 100} duration={timing.titleOne} /><EncryptedText text="王祥辉" delay={isMobile ? 680 : 360} duration={timing.titleTwo} /></h1>
+        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 1380 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 2200 : 980} duration={timing.lineTwo} holdUntil={!isMobile || cardReady} onComplete={() => setCopyReady(true)} /></p>
       </div>
       <div className={`portfolio-intro__lanyard${revealCard ? " is-ready" : ""}`} aria-label="可交互个人工卡" aria-busy={!revealCard}>
         <div className={`portfolio-intro__card-loader${revealCard ? " is-ready" : ""}`} aria-hidden="true">
