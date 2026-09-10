@@ -14,18 +14,28 @@ const Lanyard = lazy(() => lanyardModule);
 
 export function PortfolioIntro() {
   const [cardReady, setCardReady] = useState(false);
-  const [copyReady, setCopyReady] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(() => document.visibilityState === "visible");
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 760);
   const markCardReady = useCallback(() => setCardReady(true), []);
-  const revealCard = cardReady && copyReady;
+  const revealCard = cardReady;
   const timing = isMobile
-    ? { titleOne: 980, titleTwo: 1180, lineOne: 1580, lineTwo: 2800 }
+    ? { titleOne: 720, titleTwo: 850, lineOne: 1050, lineTwo: 1500 }
     : { titleOne: 560, titleTwo: 650, lineOne: 780, lineTwo: 1200 };
 
   useEffect(() => {
     const updateViewport = () => setIsMobile(window.innerWidth <= 760);
     window.addEventListener("resize", updateViewport);
     return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      const visible = document.visibilityState === "visible";
+      setIsPageVisible(visible);
+      if (!visible) setCardReady(false);
+    };
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => document.removeEventListener("visibilitychange", updateVisibility);
   }, []);
 
   return (
@@ -46,17 +56,19 @@ export function PortfolioIntro() {
         </nav>
       </header>
       <div className="portfolio-intro__copy">
-        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={isMobile ? 180 : 100} duration={timing.titleOne} /><EncryptedText text="王祥辉" delay={isMobile ? 680 : 360} duration={timing.titleTwo} /></h1>
-        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 1380 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 2200 : 980} duration={timing.lineTwo} holdUntil={!isMobile || cardReady} onComplete={() => setCopyReady(true)} /></p>
+        <h1 id="portfolio-intro-title"><EncryptedText text="Hi，我是" delay={isMobile ? 120 : 100} duration={timing.titleOne} /><EncryptedText text="王祥辉" delay={isMobile ? 420 : 360} duration={timing.titleTwo} /></h1>
+        <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 850 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 1150 : 980} duration={timing.lineTwo} /></p>
       </div>
       <div className={`portfolio-intro__lanyard${revealCard ? " is-ready" : ""}`} aria-label="可交互个人工卡" aria-busy={!revealCard}>
         <div className={`portfolio-intro__card-loader${revealCard ? " is-ready" : ""}`} aria-hidden="true">
           <span />
           <small>工卡加载中</small>
         </div>
-        <Suspense fallback={null}>
-          <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} active={copyReady} onReady={markCardReady} />
-        </Suspense>
+        {isPageVisible ? (
+          <Suspense fallback={null}>
+            <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} onReady={markCardReady} />
+          </Suspense>
+        ) : null}
       </div>
     </section>
   );

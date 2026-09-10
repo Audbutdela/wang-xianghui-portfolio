@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
@@ -40,7 +40,6 @@ export default function Lanyard({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  active = false,
   onReady = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
@@ -55,11 +54,18 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, 2]}
+        dpr={isMobile ? 1 : [1, 1.4]}
         gl={{ alpha: transparent, antialias: true, powerPreference: 'high-performance' }}
-        onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
+          gl.domElement.addEventListener('webglcontextlost', event => {
+            event.preventDefault();
+          }, { once: true });
+        }}
       >
-        <ambientLight intensity={1.8} />
+        <hemisphereLight intensity={1.65} color="#f4f1e9" groundColor="#223026" />
+        <directionalLight intensity={2.15} color="#fffdf7" position={[-3, 5, 7]} />
+        <directionalLight intensity={0.7} color="#a9d9bd" position={[4, -1, 3]} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band
             isMobile={isMobile}
@@ -72,40 +78,9 @@ export default function Lanyard({
             imageFit={imageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
-            active={active}
             onReady={onReady}
           />
         </Physics>
-        <Environment>
-          <Lightformer
-            intensity={0.65}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={0.9}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={0.75}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={1.5}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
       </Canvas>
     </div>
   );
@@ -123,7 +98,6 @@ function Band({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  active = false,
   onReady = null
 }) {
   const band = useRef(),
@@ -234,22 +208,19 @@ function Band({
   }, [frontImage, frontTitle, frontSubtitle, backImage, backColor, backFit, imageFit, frontTex, backTex, materials.base.map]);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      if (isMobile) [card, j1, j2, j3].forEach(ref => ref.current?.sleep());
+    if (isMobile) {
+      [card, j1, j2, j3].forEach(ref => ref.current?.sleep());
       onReady?.();
-    }, isMobile ? 1500 : 0);
-    return () => window.clearTimeout(timer);
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      card.current?.applyImpulse({ x: -0.22, y: 0.08, z: 0.12 }, true);
+      card.current?.applyTorqueImpulse({ x: 0.02, y: 0.08, z: -0.04 }, true);
+      onReady?.();
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [isMobile, onReady]);
-  useEffect(() => {
-    if (!active || isMobile) return undefined;
-    const timer = window.setTimeout(() => {
-      if (!card.current) return;
-      card.current.wakeUp();
-      card.current.applyImpulse({ x: -0.22, y: 0.08, z: 0.12 }, true);
-      card.current.applyTorqueImpulse({ x: 0.02, y: 0.08, z: -0.04 }, true);
-    }, 60);
-    return () => window.clearTimeout(timer);
-  }, [active, isMobile]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -259,6 +230,7 @@ function Band({
   const [hovered, hover] = useState(false);
   const pointerStart = useRef(null);
   const flipAnimation = useRef(null);
+  const lastIdlePulse = useRef(0);
   const ropeLength = isMobile ? 0.68 : 0.56;
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropeLength]);
@@ -318,6 +290,10 @@ function Band({
         nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.45, 1.45);
       }
       card.current?.setNextKinematicTranslation(nextPosition);
+    } else if (!isMobile && card.current && !flipping && state.clock.elapsedTime - lastIdlePulse.current > 4.5) {
+      const time = state.clock.elapsedTime;
+      card.current.applyImpulse({ x: Math.sin(time) * 0.018, y: 0.004, z: Math.cos(time) * 0.006 }, true);
+      lastIdlePulse.current = time;
     } else if (isMobile && card.current && !flipping) {
       const currentPosition = card.current.translation();
       const boundedPosition = {
@@ -340,6 +316,10 @@ function Band({
       }
     }
     if (fixed.current) {
+      const positions = [fixed.current, j1.current, j2.current, j3.current, card.current].map(body => body?.translation());
+      if (positions.some(position => !position || !Number.isFinite(position.x) || !Number.isFinite(position.y) || !Number.isFinite(position.z))) {
+        return;
+      }
       [j1, j2].forEach(ref => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
         const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
