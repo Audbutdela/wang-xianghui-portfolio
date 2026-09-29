@@ -17,6 +17,8 @@ const LetterGlitch = ({
   const grid = useRef({ columns: 0, rows: 0 });
   const context = useRef(null);
   const lastGlitchTime = useRef(Date.now());
+  const lastFrameTime = useRef(0);
+  const compactMode = useRef(false);
   const lettersAndSymbols = Array.from(characters);
   const fontSize = 16;
   const charWidth = 10;
@@ -40,7 +42,7 @@ const LetterGlitch = ({
       g: Math.round(start.g + (end.g - start.g) * factor),
       b: Math.round(start.b + (end.b - start.b) * factor)
     };
-    return `rgb(${result.r}, ${result.g}, ${result.b})`;
+    return `#${[result.r, result.g, result.b].map(value => value.toString(16).padStart(2, '0')).join('')}`;
   };
 
   const calculateGrid = (width, height) => ({
@@ -77,6 +79,7 @@ const LetterGlitch = ({
     const canvas = canvasRef.current;
     if (!canvas || !canvas.parentElement) return;
     const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth <= 760 ? 1 : 2);
+    compactMode.current = window.innerWidth <= 760;
     const rect = canvas.parentElement.getBoundingClientRect();
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
@@ -90,7 +93,7 @@ const LetterGlitch = ({
 
   const updateLetters = () => {
     if (!letters.current.length) return;
-    const updateCount = Math.max(1, Math.floor(letters.current.length * 0.05));
+    const updateCount = Math.max(1, Math.floor(letters.current.length * (compactMode.current ? 0.1 : 0.05)));
     for (let i = 0; i < updateCount; i += 1) {
       const index = Math.floor(Math.random() * letters.current.length);
       const letter = letters.current[index];
@@ -110,7 +113,7 @@ const LetterGlitch = ({
     let needsRedraw = false;
     letters.current.forEach(letter => {
       if (letter.colorProgress >= 1) return;
-      letter.colorProgress = Math.min(1, letter.colorProgress + 0.05);
+      letter.colorProgress = Math.min(1, letter.colorProgress + (compactMode.current ? 0.1 : 0.05));
       const startRgb = hexToRgb(letter.color);
       const endRgb = hexToRgb(letter.targetColor);
       if (startRgb && endRgb) {
@@ -123,6 +126,12 @@ const LetterGlitch = ({
 
   const animate = () => {
     const now = Date.now();
+    const frameInterval = compactMode.current ? 1000 / 30 : 0;
+    if (frameInterval && now - lastFrameTime.current < frameInterval) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+    lastFrameTime.current = now;
     let needsRedraw = false;
     if (now - lastGlitchTime.current >= glitchSpeed) {
       updateLetters();

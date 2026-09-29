@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, extend, useFrame } from '@react-three/fiber';
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
@@ -31,6 +31,7 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
+  paused = false,
   frontImage = null,
   frontTitle = null,
   frontSubtitle = null,
@@ -42,10 +43,10 @@ export default function Lanyard({
   lanyardWidth = 1,
   onReady = null
 }) {
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 760);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 760);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -53,6 +54,7 @@ export default function Lanyard({
   return (
     <div className="lanyard-wrapper">
       <Canvas
+        frameloop={paused ? 'never' : 'always'}
         camera={{ position: position, fov: fov }}
         dpr={isMobile ? 1 : [1, 1.4]}
         gl={{ alpha: transparent, antialias: true, powerPreference: 'high-performance' }}
@@ -63,11 +65,13 @@ export default function Lanyard({
           }, { once: true });
         }}
       >
+        <ResponsiveCamera isMobile={isMobile} position={position} fov={fov} />
         <hemisphereLight intensity={1.65} color="#f4f1e9" groundColor="#223026" />
         <directionalLight intensity={2.15} color="#fffdf7" position={[-3, 5, 7]} />
         <directionalLight intensity={0.7} color="#a9d9bd" position={[4, -1, 3]} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+        <Physics paused={paused} gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band
+            key={isMobile ? 'mobile' : 'desktop'}
             isMobile={isMobile}
             frontImage={frontImage}
             frontTitle={frontTitle}
@@ -85,6 +89,19 @@ export default function Lanyard({
     </div>
   );
 }
+
+function ResponsiveCamera({ isMobile, position, fov }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    camera.position.set(...(isMobile ? [0, 0, 18] : position));
+    camera.fov = isMobile ? 19 : fov;
+    camera.updateProjectionMatrix();
+  }, [camera, fov, isMobile, position]);
+
+  return null;
+}
+
 function Band({
   maxSpeed = 50,
   minSpeed = 0,
@@ -208,15 +225,9 @@ function Band({
   }, [frontImage, frontTitle, frontSubtitle, backImage, backColor, backFit, imageFit, frontTex, backTex, materials.base.map]);
 
   useEffect(() => {
-    if (isMobile) {
-      [card, j1, j2, j3].forEach(ref => ref.current?.sleep());
-      onReady?.();
-      return undefined;
-    }
-
     const frame = window.requestAnimationFrame(() => {
-      card.current?.applyImpulse({ x: -0.22, y: 0.08, z: 0.12 }, true);
-      card.current?.applyTorqueImpulse({ x: 0.02, y: 0.08, z: -0.04 }, true);
+      card.current?.applyImpulse(isMobile ? { x: -0.025, y: 0.01, z: 0.01 } : { x: -0.22, y: 0.08, z: 0.12 }, true);
+      card.current?.applyTorqueImpulse(isMobile ? { x: 0.005, y: 0.012, z: -0.006 } : { x: 0.02, y: 0.08, z: -0.04 }, true);
       onReady?.();
     });
     return () => window.cancelAnimationFrame(frame);
@@ -232,6 +243,9 @@ function Band({
   const flipAnimation = useRef(null);
   const lastIdlePulse = useRef(0);
   const ropeLength = isMobile ? 0.68 : 0.56;
+  const bodyPositions = isMobile
+    ? { j1: [0, -0.52, 0], j2: [0, -1.04, 0], j3: [0, -1.56, 0], card: [0, -3.04, 0] }
+    : { j1: [0.28, 0, 0], j2: [0.56, 0, 0], j3: [0.84, 0, 0], card: [1.12, 0, 0] };
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropeLength]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], ropeLength]);
@@ -281,12 +295,18 @@ function Band({
       const pointerY = isMobile ? THREE.MathUtils.clamp(state.pointer.y, -0.84, 0.42) : state.pointer.y;
       vec.set(pointerX, pointerY, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
-      vec.add(dir.multiplyScalar(state.camera.position.length()));
+      // Intersect the pointer ray with the card plane instead of moving
+      // another camera-distance beyond the unprojected point.
+      vec.copy(state.camera.position).addScaledVector(dir, -state.camera.position.z / dir.z);
       [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
       const nextPosition = { x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z };
       if (isMobile) {
         nextPosition.x = THREE.MathUtils.clamp(nextPosition.x, -1.85, 1.85);
         nextPosition.y = THREE.MathUtils.clamp(nextPosition.y, -1.05, 2.7);
+        nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.45, 1.45);
+      } else {
+        nextPosition.x = THREE.MathUtils.clamp(nextPosition.x, -2.4, 2.4);
+        nextPosition.y = THREE.MathUtils.clamp(nextPosition.y, 0.6, 3.2);
         nextPosition.z = THREE.MathUtils.clamp(nextPosition.z, -1.45, 1.45);
       }
       card.current?.setNextKinematicTranslation(nextPosition);
@@ -325,7 +345,7 @@ function Band({
         const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
         ref.current.lerped.lerp(
           ref.current.translation(),
-          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+          Math.min(1, delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)))
         );
       });
       curve.points[0].copy(j3.current.translation());
@@ -346,16 +366,16 @@ function Band({
     <>
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.28, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody position={bodyPositions.j1} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[0.56, 0, 0]} ref={j2} {...segmentProps}>
+        <RigidBody position={bodyPositions.j2} ref={j2} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[0.84, 0, 0]} ref={j3} {...segmentProps}>
+        <RigidBody position={bodyPositions.j3} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.12, 0, 0]} ref={card} {...segmentProps} type={dragged || flipping ? 'kinematicPosition' : 'dynamic'}>
+        <RigidBody position={bodyPositions.card} ref={card} {...segmentProps} type={dragged || flipping ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
@@ -366,9 +386,19 @@ function Band({
               e.target.releasePointerCapture(e.pointerId);
               const start = pointerStart.current;
               drag(false);
-              if (isMobile && card.current) {
-                card.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-                card.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+              if (card.current) {
+                const velocity = card.current.linvel();
+                const angularVelocity = card.current.angvel();
+                card.current.setLinvel({
+                  x: THREE.MathUtils.clamp(velocity.x, -2.4, 2.4),
+                  y: THREE.MathUtils.clamp(velocity.y, -2.4, 2.4),
+                  z: THREE.MathUtils.clamp(velocity.z, -1.2, 1.2)
+                }, true);
+                card.current.setAngvel({
+                  x: THREE.MathUtils.clamp(angularVelocity.x, -2.2, 2.2),
+                  y: THREE.MathUtils.clamp(angularVelocity.y, -2.2, 2.2),
+                  z: THREE.MathUtils.clamp(angularVelocity.z, -2.2, 2.2)
+                }, true);
               }
               if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 8 && card.current) {
                 const from = new THREE.Quaternion().copy(card.current.rotation());

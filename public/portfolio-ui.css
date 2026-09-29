@@ -1,0 +1,102 @@
+/* Shared navigation and reading rhythm for the cover and detail pages. */
+:root {
+  --site-font: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  --site-width: 1120px;
+  --site-gutter: max(24px, calc((100vw - var(--site-width)) / 2));
+  --site-header: 64px;
+  --site-nav-bg: linear-gradient(180deg, #394134, #2b3328);
+}
+html :is(.portfolio-intro__header, .topbar) {
+  position: fixed;
+  min-height: var(--site-header);
+  padding: 0 var(--site-gutter);
+  gap: 24px;
+  background: var(--site-nav-bg);
+  backdrop-filter: none;
+  font-family: var(--site-font);
+}
+html :is(.portfolio-intro__brand, .brand) {
+  font: 600 22px/1.1 var(--site-font);
+  letter-spacing: .015em;
+  color: #f4f6ee;
+}
+html :is(.portfolio-intro__nav, .site-links) {
+  gap: 20px;
+  padding: 0;
+  transform: none;
+  font: 400 16px/1.4 var(--site-font);
+  letter-spacing: .02em;
+}
+html :is(.portfolio-intro__nav, .site-links) a {
+  min-height: 44px;
+  line-height: 1.4;
+  color: rgba(244,246,238,.78);
+}
+html :is(.portfolio-intro__nav, .site-links) a::after { bottom: 2px; }
+html :is(.portfolio-intro__nav, .site-links) a[aria-current="page"] { color: #fff; }
+html :is(a, button, summary):focus-visible {
+  outline: 2px solid #8ca76f;
+  outline-offset: 4px;
+}
+html .topbar-current { display: none; }
+html body[data-page] .hero {
+  width: min(var(--site-width), calc(100% - 48px));
+  min-height: 0;
+  padding: calc(var(--site-header) + 64px) 0 56px;
+}
+html body[data-page] .hero h1 {
+  font-size: clamp(58px, 6vw, 88px);
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  margin: 0 0 24px;
+}
+html :is(.deck, .copy, .copy p, .section-intro, .case-heading span, .case-body p, .job p, .strength span) {
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-character;
+  text-wrap: wrap;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+html .paper { width: min(var(--site-width), calc(100% - 48px)); }
+html :is(.resume-download, .game-skip, .game-again, .game-contact-button) { min-height: 44px; }
+html :is(.section, .case-card, #contactInfo) { scroll-margin-top: calc(var(--site-header) + 24px); }
+@media (max-width: 760px) {
+  :root { --site-header: 94px; --site-gutter: 16px; }
+  html :is(.portfolio-intro__header, .topbar) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 44px;
+    align-content: center;
+    gap: 4px;
+    padding: 9px var(--site-gutter) 4px;
+  }
+  html :is(.portfolio-intro__brand, .brand) { font-size: 19px; line-height: 1.1; }
+  html :is(.portfolio-intro__nav, .site-links) {
+    width: max-content;
+    max-width: 100%;
+    justify-self: end;
+    justify-content: flex-end;
+    gap: clamp(10px, 3vw, 16px);
+    overflow: visible;
+    font-size: 14px;
+  }
+  html .site-links a:first-child { display: inline-flex; }
+  html :is(.portfolio-intro__nav, .site-links) a { font-size: 14px; min-height: 44px; }
+  html body[data-page] .hero {
+    width: calc(100% - 36px);
+    min-height: 0;
+    padding: calc(var(--site-header) + 32px) 0 32px;
+  }
+  html body[data-page] .hero h1 { font-size: clamp(44px, 12vw, 54px); line-height: 1.12; margin-bottom: 20px; }
+  html body[data-page="ai"] .hero h1 { font-size: clamp(32px, 9.5vw, 42px); line-height: 1.12; margin-bottom: 20px; }
+  html .paper { width: calc(100% - 16px); padding: 32px 20px; border-radius: 24px; }
+  html :is(.metric-grid, .tool-grid, .strength-grid, .about-intro, .contact-hub) { grid-template-columns: 1fr; }
+  html .job { grid-template-columns: 1fr; gap: 10px; }
+  html .portfolio-intro__copy { top: calc(var(--site-header) + 32px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html body { transition: none; transform: none; }
+  html :is(.site-links a, .site-links a::before, .site-links a::after, .case-card, .case-toggle) { transition: none; animation: none; }
+}

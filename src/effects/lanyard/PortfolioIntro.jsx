@@ -32,7 +32,6 @@ export function PortfolioIntro() {
     const updateVisibility = () => {
       const visible = document.visibilityState === "visible";
       setIsPageVisible(visible);
-      if (!visible) setCardReady(false);
     };
     document.addEventListener("visibilitychange", updateVisibility);
     return () => document.removeEventListener("visibilitychange", updateVisibility);
@@ -40,10 +39,10 @@ export function PortfolioIntro() {
 
   return (
     <section className="portfolio-intro" id="home" aria-labelledby="portfolio-intro-title">
-      <link rel="preload" as="fetch" href={cardModel} crossOrigin="anonymous" />
-      <link rel="preload" as="image" href={portraitImage} />
-      <link rel="preload" as="image" href={backImage} />
-      <link rel="preload" as="image" href={bandImage} />
+      <link rel="preload" as="fetch" type="model/gltf-binary" href={cardModel} crossOrigin="anonymous" fetchPriority="high" />
+      <link rel="preload" as="image" href={portraitImage} fetchPriority="high" />
+      <link rel="preload" as="image" href={backImage} fetchPriority="high" />
+      <link rel="preload" as="image" href={bandImage} fetchPriority="high" />
       <LetterGlitch className="portfolio-intro__glitch" glitchColors={["#1f764e", "#1d5038", "#00aaff"]} glitchSpeed={5} centerVignette outerVignette smooth />
       <div className="portfolio-intro__wash" aria-hidden="true" />
       <header className="portfolio-intro__header">
@@ -60,15 +59,9 @@ export function PortfolioIntro() {
         <p><EncryptedText text="一名关注 AI 落地的互联网招聘 HR。" delay={isMobile ? 850 : 700} duration={timing.lineOne} /><EncryptedText text="对互联网、游戏与 AI 充满兴趣，保持好奇，在持续学习与实践中探索招聘工作的更多可能。" delay={isMobile ? 1150 : 980} duration={timing.lineTwo} /></p>
       </div>
       <div className={`portfolio-intro__lanyard${revealCard ? " is-ready" : ""}`} aria-label="可交互个人工卡" aria-busy={!revealCard}>
-        <div className={`portfolio-intro__card-loader${revealCard ? " is-ready" : ""}`} aria-hidden="true">
-          <span />
-          <small>工卡加载中</small>
-        </div>
-        {isPageVisible ? (
           <Suspense fallback={null}>
-            <Lanyard position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} onReady={markCardReady} />
+            <Lanyard paused={!isPageVisible} position={[0, 0, 18]} gravity={[0, -40, 0]} fov={17} frontImage={portraitImage} frontTitle="王祥辉" frontSubtitle="互联网 HR" backImage={backImage} backColor="#263329" backFit="contain" imageFit="cover" lanyardImage={bandImage} lanyardWidth={1} onReady={markCardReady} />
           </Suspense>
-        ) : null}
       </div>
     </section>
   );
